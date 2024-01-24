@@ -7,21 +7,27 @@ import javax.swing.JButton;
 import javax.swing.JTable;
 import javax.swing.JScrollPane;
 import javax.swing.border.LineBorder;
+
 import java.awt.Color;
+
 import javax.swing.table.DefaultTableModel;
 import javax.swing.JLabel;
-import com.jgoodies.forms.factories.DefaultComponentFactory;
+
 import java.awt.Font;
 import java.awt.Toolkit;
+
 import javax.swing.JMenuBar;
 import javax.swing.JComboBox;
 import javax.swing.DefaultComboBoxModel;
-import javax.swing.ImageIcon;
-import javax.swing.JSpinner;
-import javax.swing.JScrollBar;
+
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 
+import javax.swing.ListSelectionModel;
+
+@SuppressWarnings("serial")
 public class Principal extends JFrame {
 
 	private JPanel contentPane;
@@ -38,6 +44,55 @@ public class Principal extends JFrame {
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
+		
+		JMenuBar menuBar = new JMenuBar();
+		menuBar.setBounds(0, 0, 680, 22);
+		contentPane.add(menuBar);
+		
+		JButton btnNewButton = new JButton("Parte");
+		btnNewButton.setBackground(new Color(0, 153, 153));
+		menuBar.add(btnNewButton);
+		
+		JButton btnNewButton_1 = new JButton("Remover ");
+		btnNewButton_1.setBackground(new Color(0, 153, 153));
+		menuBar.add(btnNewButton_1);
+		
+		JButton BtnCreateElector = new JButton("Crear Elector");
+		BtnCreateElector.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+			}
+		});
+		BtnCreateElector.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent arg0) {
+				CreateElector c = new CreateElector();
+				c.setVisible(true);
+			
+			}
+		});
+		BtnCreateElector.setBackground(new Color(0, 153, 153));
+		menuBar.add(BtnCreateElector);
+		
+		JButton button = new JButton("Crear Usuario");
+		button.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				CreateUser c = new CreateUser();
+				c.setVisible(true);
+			}
+		});
+		button.setBackground(new Color(0, 153, 153));
+		menuBar.add(button);
+		
+		JButton BtnCerrarSeccion = new JButton("Cerrar Seccion ");
+		menuBar.add(BtnCerrarSeccion);
+		BtnCerrarSeccion.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				login l = new login();
+				l.setVisible(true);
+				dispose();
+			}
+		});
+		BtnCerrarSeccion.setBackground(new Color(0, 153, 153));
 		
 		JPanel panel = new JPanel();
 		panel.setBorder(new LineBorder(new Color(0, 0, 0)));
@@ -85,36 +140,13 @@ public class Principal extends JFrame {
 		comboBoxResumen.setBounds(68, 96, 130, 22);
 		panel.add(comboBoxResumen);
 		
-		JLabel lblNewLabel = new JLabel("");
-		lblNewLabel.setBounds(0, 0, 290, 436);
-		panel.add(lblNewLabel);
-		lblNewLabel.setIcon(new ImageIcon("C:\\Users\\Cesar Escalona\\Videos\\ProyectoBD\\src\\img\\bandera.png"));
-		
-		JMenuBar menuBar = new JMenuBar();
-		menuBar.setBounds(0, 0, 341, 22);
-		contentPane.add(menuBar);
-		
-		JButton btnNewButton = new JButton("Parte");
-		btnNewButton.setBackground(Color.CYAN);
-		menuBar.add(btnNewButton);
-		
-		JButton btnNewButton_1 = new JButton("Remover ");
-		btnNewButton_1.setBackground(Color.CYAN);
-		menuBar.add(btnNewButton_1);
-		
-		JButton BtnCreateUser = new JButton("Crear Usuario");
-		BtnCreateUser.setBackground(Color.CYAN);
-		menuBar.add(BtnCreateUser);
-		
-		JButton BtnCerrarSeccion = new JButton("Cerrar Seccion ");
-		BtnCerrarSeccion.setBackground(Color.CYAN);
-		menuBar.add(BtnCerrarSeccion);
-		
-		JScrollBar scrollBar = new JScrollBar();
-		scrollBar.setBounds(663, 0, 17, 457);
-		contentPane.add(scrollBar);
+		JScrollPane scrollPane = new JScrollPane();
+		scrollPane.setBounds(290, 21, 390, 436);
+		contentPane.add(scrollPane);
 		
 		table = new JTable();
+		table.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+		scrollPane.setViewportView(table);
 		table.setModel(new DefaultTableModel(
 			new Object[][] {
 				{null, null, null, null, null, null, null},
@@ -156,7 +188,5 @@ public class Principal extends JFrame {
 		table.getColumnModel().getColumn(4).setPreferredWidth(89);
 		table.getColumnModel().getColumn(5).setPreferredWidth(89);
 		table.getColumnModel().getColumn(6).setPreferredWidth(89);
-		table.setBounds(291, 21, 389, 436);
-		contentPane.add(table);
 	}
 }
