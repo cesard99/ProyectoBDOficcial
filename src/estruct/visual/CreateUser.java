@@ -6,23 +6,43 @@ import java.awt.EventQueue;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
+import javax.swing.table.DefaultTableCellRenderer;
+
 import java.awt.Color;
+
 import javax.swing.JLabel;
+
 import java.awt.Font;
+
 import javax.swing.JTextField;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.DefaultComboBoxModel;
+
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
+import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.Random;
+
+import javax.swing.JScrollPane;
+import javax.swing.JTable;
+
+import dto.Registrer_DTO;
+import estruct.services.Registrer_Services;
+import estruct.services.ServicesLocator;
+import estruct.util.CreateUserTablemodel;
+import estruct.util.validaciones;
 
 public class CreateUser extends JFrame {
-
+	private ArrayList<Registrer_DTO> listaUsuarios;
 	private JPanel contentPane;
 	private JTextField textField;
 	private JTextField textField_1;
 	private JComboBox textField_2;
-
+	private JTable table;
+	private DefaultTableCellRenderer Alinear = new DefaultTableCellRenderer();
+	private Registrer_Services registrer_Services = ServicesLocator.getRegistrer_Services();
 	/**
 	 * Launch the application.
 	 */
@@ -76,6 +96,7 @@ public class CreateUser extends JFrame {
 		JButton button = new JButton("Crear");
 		button.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
+			crear();
 			}
 		});
 		button.setBackground(new Color(0, 128, 128));
@@ -105,5 +126,62 @@ public class CreateUser extends JFrame {
 		textField_2.setEditable(true);
 		textField_2.setBounds(10, 172, 134, 20);
 		contentPane.add(textField_2);
+		
+		JScrollPane scrollPane = new JScrollPane();
+		scrollPane.setBounds(204, 11, 230, 209);
+		contentPane.add(scrollPane);
+		
+		table = new JTable();
+		scrollPane.setViewportView(table);
+		ponerUsuarios();
 	}
+	
+	public void crear(){
+		int valorDado = (int)Math.floor(Math.random()*10+5);
+		String user =textField.getText();
+		String pss =textField_1.getText();
+		String rol =textField_2.getSelectedItem().toString();
+		//Registrer_DTO u = new Registrer_DTO(user, pss, rol,valorDado);
+	    try {
+			registrer_Services.insertUser(user, pss, rol, valorDado);
+		} catch (ClassNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	    ponerUsuarios();
+		}
+		
+	
+	
+	
+	
+	
+	
+	public void ponerUsuarios(){
+		int pos = -1;
+		CreateUserTablemodel model = new CreateUserTablemodel(){
+			private static final long serialVersionUID = 1L;
+			@Override
+			public boolean isCellEditable(int row, int column) {
+				return false;
+			}
+		};
+		table.setModel(model);
+		
+		try{
+			listaUsuarios = new Registrer_Services().selectAllUsers();
+			for(Registrer_DTO u : listaUsuarios){
+				
+				String[] datos = {u.getName(), u.getRol()};
+				model.addRow(datos);
+			}
+		} catch (ClassNotFoundException | SQLException e) {
+			e.printStackTrace();
+		}
+	}
+	
+	
 }

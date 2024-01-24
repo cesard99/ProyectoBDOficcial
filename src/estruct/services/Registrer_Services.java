@@ -14,7 +14,7 @@ import dto.Registrer_DTO;
 public class Registrer_Services {
 	public void insertUser(String usser, String userpass, String rol, int code) 
 			throws SQLException, ClassNotFoundException{
-		String query = "SELECT user__insert(?,?,?)";
+		String query = "SELECT users_insert(?,?,?,?)";
 		java.sql.Connection connection = ServicesLocator.getConnection();
 		PreparedStatement preparedStatement = connection.prepareStatement(query);
 		preparedStatement.setString(1, usser);
@@ -27,7 +27,7 @@ public class Registrer_Services {
 	}
 	
 	public void deleteUser(int userCode) throws SQLException, ClassNotFoundException{
-		String query = "SELECT user__delete(?)";
+		String query = "SELECT users__delete(?)";
 		java.sql.Connection connection = ServicesLocator.getConnection();
 		PreparedStatement preparedStatement = connection.prepareStatement(query);
 		preparedStatement.setInt(1, userCode);
@@ -38,7 +38,7 @@ public class Registrer_Services {
 	
 	public void updateUser(String usser, String userpass, String rol, int code) 
 			throws SQLException, ClassNotFoundException{
-		String query = "SELECT user__update(?,?,?,?,?)";
+		String query = "SELECT users__update(?,?,?,?,?)";
 		java.sql.Connection connection = ServicesLocator.getConnection();
 		PreparedStatement preparedStatement = connection.prepareStatement(query);
 		preparedStatement.setString(1, usser);
@@ -52,7 +52,7 @@ public class Registrer_Services {
 	
 	public void updateUserWithoutPassword(int userCode, String userName, String userNick, int roleCode) 
 			throws SQLException, ClassNotFoundException{
-		String query = "SELECT user__update_without_password(?,?,?,?)";
+		String query = "SELECT users__update_without_password(?,?,?,?)";
 		java.sql.Connection connection = ServicesLocator.getConnection();
 		PreparedStatement preparedStatement = connection.prepareStatement(query);
 		preparedStatement.setInt(1, userCode);
@@ -67,7 +67,7 @@ public class Registrer_Services {
 	public Registrer_DTO findUser(int userCode) throws SQLException, ClassNotFoundException{
 		java.sql.Connection connection = ServicesLocator.getConnection();
 		Statement statement = connection.createStatement (ResultSet.TYPE_SCROLL_SENSITIVE, ResultSet.CONCUR_READ_ONLY); 
-		String query = "SELECT * FROM user_ WHERE user_.user_code = '"+userCode+"'"; 
+		String query = "SELECT * FROM users_ WHERE users_.users_code = '"+userCode+"'"; 
 		ResultSet rs = statement.executeQuery(query);
 		rs.first();
 		Registrer_DTO user = new Registrer_DTO(rs.getString(1), rs.getString(2), rs.getString(3), rs.getInt(4));                 //(rs.getInt(1), rs.getString(2), rs.getString(3), rs.getString(4), rs.getInt(5)); 
