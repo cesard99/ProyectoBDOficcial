@@ -60,7 +60,7 @@ public class CreateElector extends JFrame {
 	 */
 	public CreateElector() {
 		setTitle("CreateUser");
-		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		setBounds(100, 100, 640, 525);
 		contentPane = new JPanel();
 		contentPane.setBackground(new Color(0, 128, 128));
@@ -97,11 +97,11 @@ public class CreateElector extends JFrame {
 		contentPane.add(lblNumeroConsecutivo);
 		
 		JSpinner spinner = new JSpinner();
-		spinner.setModel(new SpinnerNumberModel(new Integer(0), null, null, new Integer(1)));
-		spinner.setBounds(167, 169, 30, 20);
+		spinner.setModel(new SpinnerNumberModel(new Integer(0), new Integer(0), null, new Integer(1)));
+		spinner.setBounds(153, 169, 44, 20);
 		contentPane.add(spinner);
 		
-		JLabel lblDireccionParticular = new JLabel("Direccion Particular");
+		final JLabel lblDireccionParticular = new JLabel("Direccion Particular");
 		lblDireccionParticular.setForeground(Color.WHITE);
 		lblDireccionParticular.setFont(new Font("Tahoma", Font.PLAIN, 15));
 		lblDireccionParticular.setBounds(22, 221, 158, 14);
@@ -112,73 +112,70 @@ public class CreateElector extends JFrame {
 		contentPane.add(textField_2);
 		textField_2.setColumns(10);
 		
-		JComboBox comboBox = new JComboBox();
-		comboBox.setModel(new DefaultComboBoxModel(new String[] {"Elector", "Nominado"}));
-		comboBox.setBounds(206, 11, 168, 22);
-		contentPane.add(comboBox);
 		
-		JLabel lblEdad = new JLabel("Edad:");
-		lblEdad.setForeground(Color.WHITE);
-		lblEdad.setFont(new Font("Tahoma", Font.PLAIN, 15));
-		lblEdad.setBounds(456, 42, 65, 14);
-		contentPane.add(lblEdad);
-		
-		JSpinner spinner_1 = new JSpinner();
-		spinner_1.setBounds(531, 41, 39, 20);
-		contentPane.add(spinner_1);
-		
-		JLabel lblIntegracionRevolucionaria = new JLabel("Integracion Revolucionaria");
+			
+		final JLabel lblIntegracionRevolucionaria = new JLabel("Integracion Revolucionaria");
+		lblIntegracionRevolucionaria.setVisible(false);
 		lblIntegracionRevolucionaria.setForeground(Color.WHITE);
 		lblIntegracionRevolucionaria.setFont(new Font("Tahoma", Font.PLAIN, 15));
 		lblIntegracionRevolucionaria.setBounds(430, 68, 184, 14);
 		contentPane.add(lblIntegracionRevolucionaria);
 		
 		textField_3 = new JTextField();
+		textField_3.setVisible(false);
 		textField_3.setBounds(430, 97, 184, 20);
 		contentPane.add(textField_3);
 		textField_3.setColumns(10);
 		
-		JLabel lblTelefono = new JLabel("Telefono");
+		final JLabel lblTelefono = new JLabel("Telefono");
+		lblTelefono.setVisible(false);
 		lblTelefono.setForeground(Color.WHITE);
 		lblTelefono.setFont(new Font("Tahoma", Font.PLAIN, 15));
 		lblTelefono.setBounds(430, 124, 158, 14);
 		contentPane.add(lblTelefono);
 		
 		textField_4 = new JTextField();
+		textField_4.setVisible(false);
 		textField_4.setBounds(430, 149, 184, 20);
 		contentPane.add(textField_4);
 		textField_4.setColumns(10);
 		
-		JLabel lblOcupacion = new JLabel("Ocupacion ");
+		final JLabel lblOcupacion = new JLabel("Ocupacion ");
+		lblOcupacion.setVisible(false);
 		lblOcupacion.setForeground(Color.WHITE);
 		lblOcupacion.setFont(new Font("Tahoma", Font.PLAIN, 15));
 		lblOcupacion.setBounds(430, 180, 158, 14);
 		contentPane.add(lblOcupacion);
 		
 		textField_5 = new JTextField();
+		textField_5.setVisible(false);
 		textField_5.setBounds(430, 205, 184, 20);
 		contentPane.add(textField_5);
 		textField_5.setColumns(10);
 		
-		JLabel lblProfesion = new JLabel("Profesion");
+		final JLabel lblProfesion = new JLabel("Profesion");
+		lblProfesion.setVisible(false);
 		lblProfesion.setForeground(Color.WHITE);
 		lblProfesion.setFont(new Font("Tahoma", Font.PLAIN, 15));
 		lblProfesion.setBounds(430, 240, 158, 14);
 		contentPane.add(lblProfesion);
 		
 		textField_6 = new JTextField();
+		textField_6.setVisible(false);
 		textField_6.setBounds(430, 265, 184, 20);
 		contentPane.add(textField_6);
 		textField_6.setColumns(10);
 		
-		JLabel lblDatosBiograficos = new JLabel("Datos Biograficos");
+		final JLabel lblDatosBiograficos = new JLabel("Datos Biograficos");
+		lblDatosBiograficos.setVisible(false);
 		lblDatosBiograficos.setForeground(Color.WHITE);
 		lblDatosBiograficos.setFont(new Font("Tahoma", Font.PLAIN, 15));
 		lblDatosBiograficos.setBounds(430, 305, 158, 14);
 		contentPane.add(lblDatosBiograficos);
 		
 		textField_7 = new JTextField();
-		textField_7.setBounds(435, 328, 179, 20);
+		textField_7.setVisible(false);
+		textField_7.setBounds(430, 328, 184, 20);
 		contentPane.add(textField_7);
 		textField_7.setColumns(10);
 		
@@ -198,12 +195,47 @@ public class CreateElector extends JFrame {
 		contentPane.add(textField_8);
 		textField_8.setColumns(10);
 		
-		JLabel lblCausasDeLa = new JLabel("Causas De la votacion");
+		JLabel lblCausasDeLa = new JLabel("Causas de no voto");
 		lblCausasDeLa.setForeground(Color.WHITE);
 		lblCausasDeLa.setFont(new Font("Tahoma", Font.PLAIN, 15));
 		lblCausasDeLa.setBounds(10, 307, 158, 14);
 		contentPane.add(lblCausasDeLa);
 		
+		final JComboBox comboBox = new JComboBox();
+		comboBox.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				if(comboBox.getSelectedItem().equals("Elector")){
+					lblDatosBiograficos.setVisible(false);
+					lblOcupacion.setVisible(false);
+					lblIntegracionRevolucionaria.setVisible(false);
+					lblProfesion.setVisible(false);
+					lblTelefono.setVisible(false);
+					textField_3.setVisible(false);
+					textField_4.setVisible(false);
+					textField_5.setVisible(false);
+					textField_6.setVisible(false);
+					textField_7.setVisible(false);
+					
+				}else{
+					lblDatosBiograficos.setVisible(true);
+					lblOcupacion.setVisible(true);
+					lblIntegracionRevolucionaria.setVisible(true);
+					lblProfesion.setVisible(true);
+					lblTelefono.setVisible(true);
+					textField_3.setVisible(true);
+					textField_4.setVisible(true);
+					textField_5.setVisible(true);
+					textField_6.setVisible(true);
+					textField_7.setVisible(true);
+				}
+			}
+		});
+		comboBox.setModel(new DefaultComboBoxModel(new String[] {"Elector", "Nominado"}));
+		comboBox.setBounds(206, 11, 168, 22);
+		contentPane.add(comboBox);
+		if(comboBox.getSelectedItem().equals("nominado")){
+			
+		}
 		JButton btnNewButton = new JButton("Crear");
 		btnNewButton.setBackground(new Color(0, 128, 128));
 		btnNewButton.setBounds(91, 415, 89, 23);
@@ -218,5 +250,6 @@ public class CreateElector extends JFrame {
 				btnCancelar.setBackground(new Color(0, 128, 128));
 		btnCancelar.setBounds(415, 415, 89, 23);
 		contentPane.add(btnCancelar);
+		
 	}
 }

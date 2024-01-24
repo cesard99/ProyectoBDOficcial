@@ -2,12 +2,11 @@ package estruct.services;
 
 import java.util.ArrayList;
 
-public class CDR_Services extends Registrer_Services {
+public class CDR_Services {
     private String PresidentName;
     private ArrayList<Integer> Elect;
 
     public CDR_Services(String codigo, String name, String nombPresidente, ArrayList<Integer> Elect) {
-        super(codigo, name);
         setPresidentName(nombPresidente);
         setElect(Elect);
 

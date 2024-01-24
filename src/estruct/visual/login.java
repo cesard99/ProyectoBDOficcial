@@ -15,9 +15,16 @@ import javax.swing.ImageIcon;
 import java.awt.Font;
 import java.awt.Color;
 import java.awt.Toolkit;
+import java.sql.SQLException;
+import java.util.ArrayList;
 
 import javax.swing.JPasswordField;
 
+import dto.Registrer_DTO;
+
+import estruct.services.Registrer_Services;
+import estruct.services.ServicesLocator;
+import estruct.util.validaciones;
 @SuppressWarnings("serial")
 public class login extends JFrame {
 
@@ -25,7 +32,9 @@ public class login extends JFrame {
 	private JPasswordField textFieldUserPass;
 	private JTextField textFieldUsserName;
 	JLabel LblError = new JLabel("error");
-	
+	private Registrer_Services registrer_Services = ServicesLocator.getRegistrer_Services();
+	private ArrayList<Registrer_DTO> listaUsuarios;
+	private Registrer_DTO user;
 
 	
 	public login() {
@@ -41,20 +50,12 @@ public class login extends JFrame {
 		JButton btnNewButton = new JButton("Aceptar");
 		btnNewButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				if(!Verificy()) {
-					LblError.setVisible(true);
-					textFieldUsserName.setText("");
-					textFieldUserPass.setText("");
+				Verificy(); 
 					
 					
 					
-				}else{
-					//Principal windowsPirnicpal = new Principal();
-					//windowsPirnicpal.setVisible(true);
-					Progress p = new Progress();
-					p.setVisible(true);
-					dispose();
-				}
+					
+				
 			}
 		});
 		btnNewButton.setBounds(247, 209, 89, 23);
@@ -103,14 +104,32 @@ public class login extends JFrame {
 		fondo.setBounds(0, 0, 481, 373);
 		contentPane.add(fondo);
 		LblError.setVisible(false);
+		
+		try {
+			listaUsuarios = registrer_Services.selectAllUsers();
+			if(listaUsuarios.size()==0)
+				registrer_Services.insertUser("raul", "123","administrador", 1);
+		} catch (ClassNotFoundException | SQLException e1) {
+			e1.printStackTrace();
+		}
+		
+		
 	}
 	
-	public boolean Verificy() {
+	
+	
+	
+	
+	
+	
+	public void Verificy() {
 		boolean bandera=false;
 		String nameUser=textFieldUsserName.getText();
 		@SuppressWarnings("deprecation")
 		String passUser=textFieldUserPass.getText();
-		if(nameUser.equals("Cesar")|| nameUser.equals("Raul")){
+		
+		validaciones.usuario(null, nameUser, passUser);
+		/*if(nameUser.equals("Cesar")|| nameUser.equals("Raul")){
             if(passUser.equals("cesar123") || passUser.equals("raul123")){
                 bandera=true;
             } else {
@@ -123,6 +142,35 @@ public class login extends JFrame {
         	LblError.setVisible(true);
         }
 		
-		return bandera;
+		return bandera;*/
+		try{
+			
+			boolean esta = false;
+			for(int i=0; i<listaUsuarios.size() && !esta; i++){
+				Registrer_DTO u = listaUsuarios.get(i);
+				if(u.getName().equals(nameUser)){
+					if(u.getPss().equals(passUser)){
+						esta = true;
+						user = u;
+					}
+					else{
+						throw new IllegalArgumentException("La contraseña es incorrecta, rectifique");
+					}
+				}
+			}
+			if(esta){
+				dispose();
+				Progress p = new Progress();
+				p.setVisible(true);
+			}
+			else
+				throw new IllegalArgumentException("El usuario no existe en la base de datos");
+		}
+		catch(IllegalArgumentException e1){
+			LblError.setVisible(true);
+			textFieldUsserName.setText("");
+			textFieldUserPass.setText("");
+			}
+		}
 	}
-}
+

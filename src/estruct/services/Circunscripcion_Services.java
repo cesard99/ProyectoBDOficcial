@@ -2,13 +2,12 @@ package estruct.services;
 
 import java.util.ArrayList;
 
-public class Circunscripcion_Services extends Registrer_Services {
+public class Circunscripcion_Services  {
 
     private Municipio_Services municipio;
     private ArrayList<Colegios_Services> ListColegios;
 
     public Circunscripcion_Services(String codigo, String Nombre, Municipio_Services municp, ArrayList<Colegios_Services> listColeg) {
-        super(codigo, Nombre);
         setMunicipio(municp);
         setListColegios(listColeg);
 

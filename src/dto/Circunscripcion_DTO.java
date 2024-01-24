@@ -2,13 +2,13 @@ package dto;
 
 import java.util.ArrayList;
 
-public class Circunscripcion_DTO extends Registrer_DTO {
+public class Circunscripcion_DTO  {
 
     private Municipio_DTO municipio;
     private ArrayList<Colegios_DTO> ListColegios;
 
     public Circunscripcion_DTO(String codigo, String Nombre, Municipio_DTO municp, ArrayList<Colegios_DTO> listColeg) {
-        super(codigo, Nombre);
+       
         setMunicipio(municp);
         setListColegios(listColeg);
 

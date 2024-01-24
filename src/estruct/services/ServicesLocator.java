@@ -63,7 +63,7 @@ public class ServicesLocator {
 	}
 	public static Registrer_Services getRegistrer_Services(){
 		if(registrer_Services == null)
-			registrer_Services = new Registrer_Services(null, null) ;
+			registrer_Services = new Registrer_Services() ;
 		return registrer_Services;
 	}
 	
