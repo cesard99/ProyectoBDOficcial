@@ -2,7 +2,7 @@ package estruct.services;
 
 import java.util.ArrayList;
 
-public class Municipio_Services extends Registrer_Services {
+public class Municipio_Services {
      private ArrayList<Circunscripcion_Services>listaCircunsc;
 
      public ArrayList<Circunscripcion_Services> getListaCircunsc() {
@@ -14,8 +14,6 @@ public class Municipio_Services extends Registrer_Services {
      }
 
      public Municipio_Services(String codigo,String name,ArrayList<Circunscripcion_Services>List){
-
-            super(codigo,name);
             setListaCircunsc(List);
 
 

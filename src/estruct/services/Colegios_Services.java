@@ -2,7 +2,7 @@ package estruct.services;
 
 import java.util.ArrayList;
 
-public class Colegios_Services extends Registrer_Services {
+public class Colegios_Services {
 
     private String Direccion;
     private Circunscripcion_Services cirunscrp;
@@ -10,7 +10,6 @@ public class Colegios_Services extends Registrer_Services {
 
     public Colegios_Services(String codigo, String name, String Direccion, Circunscripcion_Services cirunsc,
             ArrayList<Elector_Services> ListaPresentar) {
-        super(codigo, name);
         setDireccion(Direccion);
         setCirunscrp(cirunsc);;
         setPresentar(ListaPresentar);

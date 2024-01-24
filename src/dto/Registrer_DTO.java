@@ -1,10 +1,10 @@
-package estruct.services;
+package dto;
 
-public class Registrer_Services {
+public class Registrer_DTO {
     protected String codig;
     protected String name;
 
-    public Registrer_Services(String codigo, String name) {
+    public Registrer_DTO(String codigo, String name) {
         this.codig = codigo;
         this.name = name;
     }
