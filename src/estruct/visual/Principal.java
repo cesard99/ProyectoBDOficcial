@@ -32,7 +32,8 @@ public class Principal extends JFrame {
 
 	private JPanel contentPane;
 	private JTable table;
-
+	private JComboBox comboBoxListado;
+	private JComboBox comboBoxResumen;
 	
 	public Principal() {
 		setTitle("Principal");
@@ -130,12 +131,12 @@ public class Principal extends JFrame {
 		BtnResumen.setBounds(208, 96, 82, 23);
 		panel.add(BtnResumen);
 		
-		JComboBox comboBoxListado = new JComboBox();
+		comboBoxListado = new JComboBox();
 		comboBoxListado.setModel(new DefaultComboBoxModel(new String[] {"Electores", "Nominados", "Municipio Mas Nominado", "Electores No Votaron", "Circunscripcion 2da Vuelta"}));
 		comboBoxListado.setBounds(68, 42, 130, 22);
 		panel.add(comboBoxListado);
 		
-		JComboBox comboBoxResumen = new JComboBox();
+		comboBoxResumen = new JComboBox();
 		comboBoxResumen.setModel(new DefaultComboBoxModel(new String[] {"Municipio", "Proceso", "Delegados Electos"}));
 		comboBoxResumen.setBounds(68, 96, 130, 22);
 		panel.add(comboBoxResumen);
@@ -188,5 +189,10 @@ public class Principal extends JFrame {
 		table.getColumnModel().getColumn(4).setPreferredWidth(89);
 		table.getColumnModel().getColumn(5).setPreferredWidth(89);
 		table.getColumnModel().getColumn(6).setPreferredWidth(89);
+
 	}
+	
+		
+		
+	
 }

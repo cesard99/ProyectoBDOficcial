@@ -25,19 +25,22 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
+import javax.swing.SpinnerDateModel;
+import java.util.Date;
+import java.util.Calendar;
 
 public class CreateElector extends JFrame {
 
 	private JPanel contentPane;
 	private JTextField textField;
-	private JTextField textField_1;
+	private JSpinner textField_1;
 	private JTextField textField_2;
 	private JTextField textField_3;
 	private JTextField textField_4;
 	private JTextField textField_5;
 	private JTextField textField_6;
 	private JTextField textField_7;
-	private JTextField textField_8;
+	private JComboBox textField_8;
 
 	/**
 	 * Launch the application.
@@ -85,10 +88,53 @@ public class CreateElector extends JFrame {
 		lblFechaDeNaic.setBounds(22, 98, 158, 14);
 		contentPane.add(lblFechaDeNaic);
 		
-		textField_1 = new JTextField();
+		
+		
+        SpinnerDateModel model = new SpinnerDateModel();
+		textField_1 = new JSpinner(model);
+		//textField_1.setModel(new SpinnerDateModel(new Date(1706072400000L), null, new Date(1706072400000L), Calendar.DAY_OF_YEAR));
+		textField_1.setEditor(new JSpinner.DateEditor(textField_1, "dd/MM/yyyy"));
 		textField_1.setBounds(10, 123, 184, 20);
 		contentPane.add(textField_1);
-		textField_1.setColumns(10);
+		
+		
+		
+		/*
+public class FechaNacimientoSpinner extends JFrame {
+    public FechaNacimientoSpinner() {
+        SpinnerDateModel model = new SpinnerDateModel();
+        JSpinner spinner = new JSpinner(model);
+        
+        // Obtener la fecha actual
+        Calendar calendar = Calendar.getInstance();
+        Date fechaActual = calendar.getTime();
+        
+        // Restar 17 años a la fecha actual
+        calendar.add(Calendar.YEAR, -17);
+        Date fechaLimite = calendar.getTime();
+        
+        // Configurar el mínimo y máximo de la fecha permitida
+        model.setStart(fechaLimite);
+        model.setEnd(fechaActual);
+        
+        // Configurar el formato de la fecha
+        JSpinner.DateEditor editor = new JSpinner.DateEditor(spinner, "dd/MM/yyyy");
+        spinner.setEditor(editor);
+        
+        // Añadir el JSpinner al JFrame
+        add(spinner);
+        
+        // Configurar la ventana
+        setSize(200, 100);
+        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        setVisible(true);
+    }
+    
+    public static void main(String[] args) {
+        new FechaNacimientoSpinner();
+    }
+}
+*/
 		
 		JLabel lblNumeroConsecutivo = new JLabel("N\u00FAmero Consecutivo:");
 		lblNumeroConsecutivo.setForeground(Color.WHITE);
@@ -190,10 +236,10 @@ public class CreateElector extends JFrame {
 		chckbxNewCheckBox.setBounds(59, 266, 21, 23);
 		contentPane.add(chckbxNewCheckBox);
 		
-		textField_8 = new JTextField();
+		textField_8 = new JComboBox();
+		textField_8.setModel(new DefaultComboBoxModel(new String[] {"", "fallecimiento", "Extranjero", "Fuera de Provincia", "Hospitalizados", "Trabajando", "Otras Causas"}));
 		textField_8.setBounds(10, 328, 184, 20);
 		contentPane.add(textField_8);
-		textField_8.setColumns(10);
 		
 		JLabel lblCausasDeLa = new JLabel("Causas de no voto");
 		lblCausasDeLa.setForeground(Color.WHITE);
@@ -237,9 +283,18 @@ public class CreateElector extends JFrame {
 			
 		}
 		JButton btnNewButton = new JButton("Crear");
+		btnNewButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+			crear();
+			}
+		});
 		btnNewButton.setBackground(new Color(0, 128, 128));
 		btnNewButton.setBounds(91, 415, 89, 23);
 		contentPane.add(btnNewButton);
+		
+		
+		
+		
 		
 		JButton btnCancelar = new JButton("Cancelar");
 		btnCancelar.addActionListener(new ActionListener() {
@@ -250,6 +305,13 @@ public class CreateElector extends JFrame {
 				btnCancelar.setBackground(new Color(0, 128, 128));
 		btnCancelar.setBounds(415, 415, 89, 23);
 		contentPane.add(btnCancelar);
+		
+	}
+	public void crear(){
+		String nameElector = textField.getText();
+		//String
+		
+		
 		
 	}
 }
