@@ -78,7 +78,7 @@ public class Principal extends JFrame {
 		btnNewButton.setBackground(new Color(0, 153, 153));
 		menuBar.add(btnNewButton);
 		
-		JButton btnNewButton_1 = new JButton("Remover ");
+		final JButton btnNewButton_1 = new JButton("Remover ");
 		btnNewButton_1.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				Locale locale = new Locale("es","ES");
