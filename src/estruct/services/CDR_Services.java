@@ -7,6 +7,7 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 
+import dto.CDR_DTO;
 import dto.Circunscripcion_DTO;
 
 public class CDR_Services {
@@ -34,7 +35,7 @@ public class CDR_Services {
 		connection.close();
 	}
 	
-	public void updateCir(int userCode, String userName, String userNick, String userPassword, int roleCode) 
+	public void updateCDR(int userCode, String userName, String userNick, String userPassword, int roleCode) 
 			throws SQLException, ClassNotFoundException{
 		String query = "SELECT user__update(?,?,?,?,?)";
 		java.sql.Connection connection = ServicesLocator.getConnection();
@@ -50,22 +51,22 @@ public class CDR_Services {
 	}
 	
 	
-	public Circunscripcion_DTO findCir(int cirCode) throws SQLException, ClassNotFoundException{
+	public CDR_DTO findCDR(int cdrCode) throws SQLException, ClassNotFoundException{
 		java.sql.Connection connection = ServicesLocator.getConnection();
 		Statement statement = connection.createStatement (ResultSet.TYPE_SCROLL_SENSITIVE, ResultSet.CONCUR_READ_ONLY); 
-		String query = "SELECT * FROM user_ WHERE user_.user_code = '"+cirCode+"'"; 
+		String query = "SELECT * FROM user_ WHERE user_.user_code = '"+cdrCode+"'"; 
 		ResultSet rs = statement.executeQuery(query);
 		rs.first();
-		Circunscripcion_DTO cir = new Circunscripcion_DTO(rs.getString(1), rs.getString(2),rs.getString(3));
+		CDR_DTO cdr = new CDR_DTO(rs.getString(1),rs.getString(2),rs.getString(3));
 		rs.close();
 		statement.close();
 		connection.close();
-		return cir;
+		return cdr;
 	}
 	
-	public ArrayList<Circunscripcion_DTO> selectAllCIR() throws SQLException, ClassNotFoundException{
-		ArrayList<Circunscripcion_DTO> cir = new ArrayList<Circunscripcion_DTO>();
-		String function = "{?= call select_all_circunscripcion()}";
+	public ArrayList<CDR_DTO> selectAllCDr() throws SQLException, ClassNotFoundException{
+		ArrayList<CDR_DTO> cdr = new ArrayList<CDR_DTO>();
+		String function = "{?= call select_all_cdr()}";
 		java.sql.Connection connection = ServicesLocator.getConnection();
 		connection.setAutoCommit(false);
 		CallableStatement preparedFunction = connection.prepareCall(function);
@@ -73,11 +74,11 @@ public class CDR_Services {
 		preparedFunction.execute();
 		ResultSet rs = (ResultSet) preparedFunction.getObject(1);
 		while (rs.next()){
-			cir.add(new Circunscripcion_DTO(rs.getString(1), rs.getString(2),rs.getString(3)));  
+			cdr.add(new CDR_DTO(rs.getString(1), rs.getString(2),rs.getString(3)));  
 		}
 		rs.close();
 		preparedFunction.close();
 		connection.close();
-		return cir;
+		return cdr;
 	}
 }

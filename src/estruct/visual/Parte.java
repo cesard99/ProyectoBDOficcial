@@ -209,6 +209,8 @@ public class Parte extends JFrame {
 		
 		llenarComboMun();
 		llenarComboCir();
+		llenarComboCdr();
+		llenarComboCOL();
 	}
 	public void crear(){
 		
@@ -245,9 +247,23 @@ public class Parte extends JFrame {
 	}
 	public void llenarComboCdr(){
 		try {
-			listcdr_DTOs = ServicesLocator.getCDR_Services();
+			listcdr_DTOs = ServicesLocator.getCDR_Services().selectAllCDr();
 			for (int i = 0; i < listcdr_DTOs.size(); i++) {
-				textField_2.addItem(listcdr_DTOs.get(i));
+				textField_2.addItem(listcdr_DTOs.get(i).getName());
+			}
+		} catch (ClassNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+	public void llenarComboCOL(){
+		try {
+			listcolegios_DTOs = ServicesLocator.getColegios_Services().selectAllCol();
+			for (int i = 0; i < listcolegios_DTOs.size(); i++) {
+				textField_3.addItem(listcolegios_DTOs.get(i).getName());
 			}
 		} catch (ClassNotFoundException e) {
 			// TODO Auto-generated catch block

@@ -32,7 +32,7 @@ public class ServicesLocator {
 	}
 	public static Colegios_Services getColegios_Services(){
 		if(Colegios_Services == null)
-			Colegios_Services = new Colegios_Services(null, null, null, null, null);
+			Colegios_Services = new Colegios_Services();
 		return Colegios_Services;
 	}
 	

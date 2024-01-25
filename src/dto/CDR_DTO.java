@@ -6,6 +6,7 @@ public class CDR_DTO  {
     private String PresidentName;
     private ArrayList<Integer> Elect;
     private String codigo;
+    private String codigoCole;
     private String name;
     
     public CDR_DTO(String codigo, String name, String nombPresidente) {
@@ -46,6 +47,14 @@ public class CDR_DTO  {
 
 	public void setName(String name) {
 		this.name = name;
+	}
+
+	public String getCodigoCole() {
+		return codigoCole;
+	}
+
+	public void setCodigoCole(String codigoCole) {
+		this.codigoCole = codigoCole;
 	}
 
 }
