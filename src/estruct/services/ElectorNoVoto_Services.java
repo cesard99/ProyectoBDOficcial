@@ -8,7 +8,7 @@ public class ElectorNoVoto_Services extends Elector_Services{
     
 
     public ElectorNoVoto_Services(String nombreApellido,String fechaNacimiento,String Direccion,int numConsc,String voto,String causa ){
-        super(nombreApellido, fechaNacimiento, Direccion,numConsc, voto);
+        super();
         setCausa(causa);
     }
 
