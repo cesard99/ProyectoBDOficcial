@@ -11,6 +11,15 @@ import javax.swing.border.LineBorder;
 import java.awt.Color;
 
 import javax.swing.table.DefaultTableModel;
+
+import dto.Elector_DTO;
+import dto.Municipio_DTO;
+import dto.Registrer_DTO;
+import estruct.services.Municipio_Services;
+import estruct.services.Registrer_Services;
+import estruct.services.Reportes_Services;
+import estruct.util.CreateUserTablemodel;
+
 import javax.swing.JLabel;
 
 import java.awt.Font;
@@ -24,15 +33,20 @@ import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.sql.SQLException;
+import java.util.ArrayList;
 
 import javax.swing.ListSelectionModel;
 
 @SuppressWarnings("serial")
 public class Principal extends JFrame {
-
+	private ArrayList<Elector_DTO>listadoElectores;
+	private ArrayList<Municipio_DTO> listMunicipio;
 	private JPanel contentPane;
 	private JTable table;
-
+	private JComboBox comboBoxListado;
+	private JComboBox comboBoxResumen;
+	private JComboBox comboBoxAgre;
 	
 	public Principal() {
 		setTitle("Principal");
@@ -50,6 +64,12 @@ public class Principal extends JFrame {
 		contentPane.add(menuBar);
 		
 		JButton btnNewButton = new JButton("Parte");
+		btnNewButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				Parte ventanaParte = new Parte();
+				ventanaParte.setVisible(true);
+			}
+		});
 		btnNewButton.setBackground(new Color(0, 153, 153));
 		menuBar.add(btnNewButton);
 		
@@ -74,8 +94,8 @@ public class Principal extends JFrame {
 		menuBar.add(BtnCreateElector);
 		
 		JButton button = new JButton("Crear Usuario");
-		button.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent arg0) {
+		button.addActionListener(new ActionListener(){
+			public void actionPerformed(ActionEvent arg0){
 				CreateUser c = new CreateUser();
 				c.setVisible(true);
 			}
@@ -118,27 +138,35 @@ public class Principal extends JFrame {
 		
 		JLabel lblResumen = new JLabel("Resumen ->");
 		lblResumen.setFont(new Font("Tahoma", Font.PLAIN, 13));
-		lblResumen.setBounds(0, 95, 74, 23);
+		lblResumen.setBounds(0, 136, 74, 23);
 		panel.add(lblResumen);
 		
 		JButton BtnResumen = new JButton("Generar");
 		BtnResumen.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				
 			}
 		});
 		BtnResumen.setBackground(new Color(0, 128, 128));
-		BtnResumen.setBounds(208, 96, 82, 23);
+		BtnResumen.setBounds(208, 137, 82, 23);
 		panel.add(BtnResumen);
 		
-		JComboBox comboBoxListado = new JComboBox();
-		comboBoxListado.setModel(new DefaultComboBoxModel(new String[] {"Electores", "Nominados", "Municipio Mas Nominado", "Electores No Votaron", "Circunscripcion 2da Vuelta"}));
+		 JComboBox comboBoxListado = new JComboBox();
+		comboBoxListado.setModel(new DefaultComboBoxModel(new String[] {"Electores", "Nominados", "Municipio con mas Nominado", "Electores No Votaron", "Circunscripcion 2da Vuelta"}));
 		comboBoxListado.setBounds(68, 42, 130, 22);
 		panel.add(comboBoxListado);
 		
 		JComboBox comboBoxResumen = new JComboBox();
 		comboBoxResumen.setModel(new DefaultComboBoxModel(new String[] {"Municipio", "Proceso", "Delegados Electos"}));
-		comboBoxResumen.setBounds(68, 96, 130, 22);
+		comboBoxResumen.setBounds(68, 137, 130, 22);
 		panel.add(comboBoxResumen);
+		
+		JComboBox comboBoxAgre = new JComboBox();
+		comboBoxAgre.setModel(new DefaultComboBoxModel(new String[] {"Una Circunscripcion", "Un CDR", "Todas Las Circunscripciones"}));
+		comboBoxAgre.setBounds(68, 80, 130, 22);
+		panel.add(comboBoxAgre);
+		comboBoxAgre.setVisible(false);
+		
 		
 		JScrollPane scrollPane = new JScrollPane();
 		scrollPane.setBounds(290, 21, 390, 436);
@@ -189,4 +217,34 @@ public class Principal extends JFrame {
 		table.getColumnModel().getColumn(5).setPreferredWidth(89);
 		table.getColumnModel().getColumn(6).setPreferredWidth(89);
 	}
+	
+		public void MostrarResumen() {
+			
+			String Resumen=comboBoxResumen.getSelectedItem().toString();
+			CreateUserTablemodel model = new CreateUserTablemodel(){
+				private static final long serialVersionUID = 1L;
+				@Override
+				public boolean isCellEditable(int row, int column) {
+					return false;
+				}
+			};
+			table.setModel(model);
+			if(Resumen.equals("Municipio")) {
+				try{
+					listMunicipio= new Municipio_Services().selectAllMun();
+					for(Municipio_DTO m  :listMunicipio){
+						
+						String[] datos = {};
+						model.addRow(datos);
+					}
+				} catch (ClassNotFoundException | SQLException e) {
+					e.printStackTrace();
+				}
+				
+				
+			}
+				
+			
+			
+		}
 }
