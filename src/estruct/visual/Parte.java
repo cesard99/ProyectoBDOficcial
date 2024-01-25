@@ -202,6 +202,7 @@ public class Parte extends JFrame {
 		JButton btnCancelar = new JButton("Cancelar");
 		btnCancelar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
+				dispose();
 			}
 		});
 		btnCancelar.setBounds(405, 391, 89, 23);

@@ -8,7 +8,7 @@ public class Circunscripcion_DTO  {
     private String codmunicipio;
     private ArrayList<Colegios_DTO> ListColegios;
 
-    public Circunscripcion_DTO(String codigo, String nombre, String codmunicipio) {
+    public Circunscripcion_DTO(String codigo, String nombre, String codmunicipio){
        this.setCodigo(codigo);
        this.setNombre(nombre);
       this.setCodmunicipio(codmunicipio);

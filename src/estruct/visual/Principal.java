@@ -26,6 +26,7 @@ import java.awt.Font;
 import java.awt.Toolkit;
 
 import javax.swing.JMenuBar;
+import javax.swing.JOptionPane;
 import javax.swing.JComboBox;
 import javax.swing.DefaultComboBoxModel;
 
@@ -35,6 +36,7 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.Locale;
 
 import javax.swing.ListSelectionModel;
 
@@ -46,7 +48,10 @@ public class Principal extends JFrame {
 	private JTable table;
 	private JComboBox comboBoxListado;
 	private JComboBox comboBoxResumen;
+	private int selectedRow = -1;
+
 	private JComboBox comboBoxAgre;
+
 	
 	public Principal() {
 		setTitle("Principal");
@@ -74,8 +79,23 @@ public class Principal extends JFrame {
 		menuBar.add(btnNewButton);
 		
 		JButton btnNewButton_1 = new JButton("Remover ");
+		btnNewButton_1.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				Locale locale = new Locale("es","ES");
+				JOptionPane.setDefaultLocale(locale);
+
+				int result = JOptionPane.showConfirmDialog(null,"�Seguro que desea eliminar el usuario seleccionado?", "Eliminar usuario",
+						JOptionPane.YES_NO_OPTION,
+						JOptionPane.QUESTION_MESSAGE);
+				if(result == JOptionPane.YES_OPTION){
+					table.remove(selectedRow);
+					
+				};
+			}
+		});
 		btnNewButton_1.setBackground(new Color(0, 153, 153));
 		menuBar.add(btnNewButton_1);
+		btnNewButton_1.setEnabled(false);
 		
 		JButton BtnCreateElector = new JButton("Crear Elector");
 		BtnCreateElector.addActionListener(new ActionListener() {
@@ -151,12 +171,17 @@ public class Principal extends JFrame {
 		BtnResumen.setBounds(208, 137, 82, 23);
 		panel.add(BtnResumen);
 		
+
 		 JComboBox comboBoxListado = new JComboBox();
 		comboBoxListado.setModel(new DefaultComboBoxModel(new String[] {"Electores", "Nominados", "Municipio con mas Nominado", "Electores No Votaron", "Circunscripcion 2da Vuelta"}));
+
+		comboBoxListado = new JComboBox();
+		comboBoxListado.setModel(new DefaultComboBoxModel(new String[] {"Electores", "Nominados", "Municipio Mas Nominado", "Electores No Votaron", "Circunscripcion 2da Vuelta"}));
+
 		comboBoxListado.setBounds(68, 42, 130, 22);
 		panel.add(comboBoxListado);
 		
-		JComboBox comboBoxResumen = new JComboBox();
+		comboBoxResumen = new JComboBox();
 		comboBoxResumen.setModel(new DefaultComboBoxModel(new String[] {"Municipio", "Proceso", "Delegados Electos"}));
 		comboBoxResumen.setBounds(68, 137, 130, 22);
 		panel.add(comboBoxResumen);
@@ -173,6 +198,13 @@ public class Principal extends JFrame {
 		contentPane.add(scrollPane);
 		
 		table = new JTable();
+		table.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				selectedRow = table.getSelectedRow();
+				btnNewButton_1.setEnabled(true);
+			}
+		});
 		table.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 		scrollPane.setViewportView(table);
 		table.setModel(new DefaultTableModel(
@@ -216,8 +248,10 @@ public class Principal extends JFrame {
 		table.getColumnModel().getColumn(4).setPreferredWidth(89);
 		table.getColumnModel().getColumn(5).setPreferredWidth(89);
 		table.getColumnModel().getColumn(6).setPreferredWidth(89);
+
 	}
 	
+
 		public void MostrarResumen() {
 			
 			String Resumen=comboBoxResumen.getSelectedItem().toString();
@@ -247,4 +281,5 @@ public class Principal extends JFrame {
 			
 			
 		}
+
 }

@@ -38,7 +38,7 @@ public class ServicesLocator {
 	
 	public static Elector_Services getElector_Services(){
 		if(Elector_Services == null)
-			Elector_Services = new Elector_Services(null, null, null, 0, null);
+			Elector_Services = new Elector_Services();
 		return Elector_Services;
 	}
 	public static ElectorNoVoto_Services getElectorNoVoto_Services(){
@@ -53,7 +53,7 @@ public class ServicesLocator {
 	}
 	public static Nominado_Services getNominado_Services(){
 		if(Nominado_Services == null)
-			Nominado_Services = new Nominado_Services(null, null, null, 0, null, null, null, null, null, null, null);
+			Nominado_Services = new Nominado_Services();
 		return Nominado_Services;
 	}
 	public static Parte_Services getParte_Services(){
