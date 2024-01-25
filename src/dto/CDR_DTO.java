@@ -5,10 +5,14 @@ import java.util.ArrayList;
 public class CDR_DTO  {
     private String PresidentName;
     private ArrayList<Integer> Elect;
-
-    public CDR_DTO(String codigo, String name, String nombPresidente, ArrayList<Integer> Elect) {
+    private String codigo;
+    private String name;
+    
+    public CDR_DTO(String codigo, String name, String nombPresidente) {
         setPresidentName(nombPresidente);
         setElect(Elect);
+        setCodigo(codigo);
+        setName(name);
 
     }
 
@@ -27,5 +31,21 @@ public class CDR_DTO  {
     public void setElect(ArrayList<Integer> elect) {
         Elect = elect;
     }
+
+	public String getCodigo() {
+		return codigo;
+	}
+
+	public void setCodigo(String codigo) {
+		this.codigo = codigo;
+	}
+
+	public String getName() {
+		return name;
+	}
+
+	public void setName(String name) {
+		this.name = name;
+	}
 
 }

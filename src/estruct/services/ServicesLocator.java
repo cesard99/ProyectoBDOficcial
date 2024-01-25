@@ -22,12 +22,12 @@ public class ServicesLocator {
 	
 	public static CDR_Services getCDR_Services(){
 		if(CDR_Services == null)
-			CDR_Services = new CDR_Services(null, null, null, null);
+			CDR_Services = new CDR_Services();
 		return CDR_Services;
 	}
 	public static Circunscripcion_Services getCircunscripcion_Services(){
 		if(Circunscripcion_Services == null)
-			Circunscripcion_Services = new Circunscripcion_Services(null, null, null, null);
+			Circunscripcion_Services = new Circunscripcion_Services();
 		return Circunscripcion_Services;
 	}
 	public static Colegios_Services getColegios_Services(){
@@ -48,7 +48,7 @@ public class ServicesLocator {
 	}
 	public static Municipio_Services getMunicipio_Services(){
 		if(Municipio_Services == null)
-			Municipio_Services = new Municipio_Services(null, null, null);
+			Municipio_Services = new Municipio_Services();
 		return Municipio_Services;
 	}
 	public static Nominado_Services getNominado_Services(){
