@@ -39,6 +39,7 @@ import java.util.ArrayList;
 import java.util.Locale;
 
 import javax.swing.ListSelectionModel;
+import javax.swing.JMenuItem;
 
 @SuppressWarnings("serial")
 public class Principal extends JFrame {
@@ -57,7 +58,7 @@ public class Principal extends JFrame {
 		setTitle("Principal");
 		setIconImage(Toolkit.getDefaultToolkit().getImage(Principal.class.getResource("/img/votacion.png")));
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-		setBounds(100, 100, 696, 496);
+		setBounds(100, 100, 751, 491);
 		contentPane = new JPanel();
 		contentPane.setBackground(new Color(0, 128, 128));
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
@@ -65,7 +66,7 @@ public class Principal extends JFrame {
 		contentPane.setLayout(null);
 		
 		JMenuBar menuBar = new JMenuBar();
-		menuBar.setBounds(0, 0, 680, 22);
+		menuBar.setBounds(0, 0, 735, 22);
 		contentPane.add(menuBar);
 		
 		JButton btnNewButton = new JButton("Parte");
@@ -113,15 +114,21 @@ public class Principal extends JFrame {
 		BtnCreateElector.setBackground(new Color(0, 153, 153));
 		menuBar.add(BtnCreateElector);
 		
-		JButton button = new JButton("Crear Usuario");
-		button.addActionListener(new ActionListener(){
-			public void actionPerformed(ActionEvent arg0){
-				CreateUser c = new CreateUser();
-				c.setVisible(true);
-			}
-		});
-		button.setBackground(new Color(0, 153, 153));
-		menuBar.add(button);
+		JButton btnCrearMunic = new JButton("Crear Municipio");
+		btnCrearMunic.setBackground(new Color(0, 128, 128));
+		menuBar.add(btnCrearMunic);
+		
+		JButton btnCrearCircrunscripcion = new JButton("Crear Circunpcion\r\n");
+		btnCrearCircrunscripcion.setBackground(new Color(0, 128, 128));
+		menuBar.add(btnCrearCircrunscripcion);
+		
+		JButton btnNewButton_4 = new JButton("Crear Colegio");
+		btnNewButton_4.setBackground(new Color(0, 128, 128));
+		menuBar.add(btnNewButton_4);
+		
+		JButton btnCrearCDR = new JButton("Crear CDR");
+		btnCrearCDR.setBackground(new Color(0, 128, 128));
+		menuBar.add(btnCrearCDR);
 		
 		JButton BtnCerrarSeccion = new JButton("Cerrar Seccion ");
 		menuBar.add(BtnCerrarSeccion);
@@ -194,7 +201,7 @@ public class Principal extends JFrame {
 		
 		
 		JScrollPane scrollPane = new JScrollPane();
-		scrollPane.setBounds(290, 21, 390, 436);
+		scrollPane.setBounds(289, 21, 446, 436);
 		contentPane.add(scrollPane);
 		
 		table = new JTable();
@@ -281,5 +288,4 @@ public class Principal extends JFrame {
 			
 			
 		}
-
 }
