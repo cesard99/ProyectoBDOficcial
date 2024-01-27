@@ -161,6 +161,7 @@ public class CreateColegio extends JFrame {
 		String circunsc=comboBoxCircunscripcion.getSelectedItem().toString();
 		try {
 			colegios_Services.insertColegioElectoral(Codigo, nombre, Direcc, circunsc);
+			JOptionPane.showMessageDialog(null, "Colegio insertado con exito", "Información", JOptionPane.INFORMATION_MESSAGE);
 		} catch (ClassNotFoundException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

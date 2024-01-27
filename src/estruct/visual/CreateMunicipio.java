@@ -124,6 +124,7 @@ public class CreateMunicipio extends JFrame {
 		String nombreString=textFieldNombre.getText().toString();
 		try {
 			municipio_Services.insertMunicipio(codigoString, nombreString);
+			JOptionPane.showMessageDialog(null, "Municipio insertado con exito", "Información", JOptionPane.INFORMATION_MESSAGE);
 		} catch (ClassNotFoundException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
