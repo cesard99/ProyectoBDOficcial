@@ -13,6 +13,8 @@ import dto.Reporte2;
 import dto.Reporte3;
 import dto.Reporte4;
 import dto.Reporte5;
+import dto.Reporte6;
+import dto.Reporte7;
 
 public class Reportes_Services {
 	
@@ -194,8 +196,41 @@ public class Reportes_Services {
 	    connection.close();
 	    return users;
 	}
+	public ArrayList<Reporte6> selectreporte6ResumeMun() throws SQLException, ClassNotFoundException {//OK al palo
+	    ArrayList<Reporte6> users = new ArrayList<Reporte6>();
+	    String function = "{?= call listadoresumenmunicipio()}";
+	    java.sql.Connection connection = ServicesLocator.getConnection();
+	    connection.setAutoCommit(false);
+	    CallableStatement preparedFunction = connection.prepareCall(function);
+	    preparedFunction.registerOutParameter(1, java.sql.Types.OTHER);
+	    preparedFunction.execute();
+	    ResultSet rs = (ResultSet) preparedFunction.getObject(1);
+	    while (rs.next()) {
+	        users.add(new Reporte6(rs.getString(1), Integer.toString(rs.getInt(2)), Integer.toString(rs.getInt(3)), Integer.toString(rs.getInt(4)),Integer.toString(rs.getInt(5))));
+	    }
+	    rs.close();
+	    preparedFunction.close();
+	    connection.close();
+	    return users;
+	}
 	
-	
+	public ArrayList<Reporte7> selectreporte7ResumemProceso() throws SQLException, ClassNotFoundException {//OK al palo
+	    ArrayList<Reporte7> users = new ArrayList<Reporte7>();
+	    String function = "{?= call listadoresumenp7()}";
+	    java.sql.Connection connection = ServicesLocator.getConnection();
+	    connection.setAutoCommit(false);
+	    CallableStatement preparedFunction = connection.prepareCall(function);
+	    preparedFunction.registerOutParameter(1, java.sql.Types.OTHER);
+	    preparedFunction.execute();
+	    ResultSet rs = (ResultSet) preparedFunction.getObject(1);
+	    while (rs.next()) {
+	        users.add(new Reporte7(rs.getString(1), rs.getString(2), rs.getString(3), rs.getString(4), Integer.toString(rs.getInt(5)), rs.getTimestamp(6).toString(), Integer.toString(rs.getInt(7)), Integer.toString(rs.getInt(8)),Integer.toString(rs.getInt(9)),Integer.toString(rs.getInt(10)),Integer.toString(rs.getInt(11)), Integer.toString(rs.getInt(12)),Integer.toString(rs.getInt(13)),Integer.toString(rs.getInt(14)),Integer.toString(rs.getInt(15)),Integer.toString(rs.getInt(16)),Integer.toString(rs.getInt(17)),Integer.toString(rs.getInt(18))));
+	    }
+	    rs.close();
+	    preparedFunction.close();
+	    connection.close();
+	    return users;
+	}
 	
 	}
 	
