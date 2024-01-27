@@ -20,6 +20,7 @@ import javax.swing.JTextField;
 import javax.swing.JButton;
 import java.awt.event.ActionListener;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.awt.event.ActionEvent;
 
 public class CreateMunicipio extends JFrame {
@@ -29,6 +30,7 @@ public class CreateMunicipio extends JFrame {
 	private JTextField textFieldCodigo;
 	private Municipio_Services municipio_Services=ServicesLocator.getMunicipio_Services();
 	private Municipio_DTO municipio_DTO;
+	private ArrayList<Municipio_DTO>listaMunicipio_DTOs;
 
 	/**
 	 * Launch the application.
@@ -86,7 +88,11 @@ public class CreateMunicipio extends JFrame {
 			public void actionPerformed(ActionEvent e) {
 			if(!textFieldCodigo.getText().toString().isEmpty() && !textFieldNombre.getText().toString().isEmpty()) {
 				if(!existeMunicipio()) {
+					if(!MunicipioNombre()) {
 					crear();
+					}else {
+						JOptionPane.showMessageDialog(null, "Ya se encuentra un Municipio con ese nombre", "Advertencia", JOptionPane.WARNING_MESSAGE);
+					}
 				}else {
 					JOptionPane.showMessageDialog(null, "El Municipio se encuentra en la Base de Datos", "Advertencia", JOptionPane.WARNING_MESSAGE);
 				}
@@ -130,9 +136,13 @@ public class CreateMunicipio extends JFrame {
 	public boolean existeMunicipio() {
 		boolean bandera =false;
 		String municipioCode=textFieldCodigo.getText();
-		int num=Integer.parseInt(municipioCode);
+		
 		try {
-		      municipio_DTO=municipio_Services.findUser(num);
+			listaMunicipio_DTOs=municipio_Services.selectAllMun();
+			for (int i = 0; i < listaMunicipio_DTOs.size() && !bandera; i++) {
+				if(listaMunicipio_DTOs.get(i).getCodigo().equals(municipioCode))
+					bandera = true;
+			}
 		} catch (ClassNotFoundException | SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -144,4 +154,22 @@ public class CreateMunicipio extends JFrame {
 		
 		return bandera;
 	}
+	
+	public boolean MunicipioNombre() {
+		boolean bandera=false;
+		String nombreMunicpio=textFieldNombre.getText();
+		try {
+			listaMunicipio_DTOs=municipio_Services.selectAllMun();
+			for (int i = 0; i < listaMunicipio_DTOs.size() && !bandera; i++) {
+				if(listaMunicipio_DTOs.get(i).getName().equals(nombreMunicpio))
+					bandera = true;
+			}
+		} catch (ClassNotFoundException | SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		return bandera;
+	}
+	
 }

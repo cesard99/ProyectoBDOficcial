@@ -35,7 +35,9 @@ public class CreateColegio extends JFrame {
 	private Colegios_Services colegios_Services =ServicesLocator.getColegios_Services();
 	private Colegios_DTO colegios_DTO;
 	JComboBox comboBoxCircunscripcion = new JComboBox();
-	public ArrayList<Circunscripcion_DTO> listCircunscripcion;
+	private ArrayList<Circunscripcion_DTO> listCircunscripcion;
+	private ArrayList<Colegios_DTO>listColegios_DTOs;
+	
 
 	/**
 	 * Launch the application.
@@ -117,7 +119,11 @@ public class CreateColegio extends JFrame {
 				if(!comboBoxCircunscripcion.getSelectedItem().toString().isEmpty() && !textFieldCodigo.getText().toString().isEmpty() && 
 						!textFieldDireccion.getText().toString().isEmpty() && !textFieldNombre.getText().toString().isEmpty()) {
 					if(!existeColegio()) {
+						if(!ColegioNombre()) {
 						crear();
+						}else {
+							JOptionPane.showMessageDialog(null, "Ya se encuentra un Colegio Electoral con ese nombre", "Advertencia", JOptionPane.WARNING_MESSAGE);
+						}
 					}else {
 						JOptionPane.showMessageDialog(null, "El Colegio ELectoral se encuentra en la Base de Datos", "Advertencia", JOptionPane.WARNING_MESSAGE);
 					}
@@ -168,17 +174,37 @@ public class CreateColegio extends JFrame {
 	public boolean existeColegio() {
 		boolean bandera =false;
 		String CodigoCole=textFieldCodigo.getText().toString();
-		int num=Integer.parseInt(CodigoCole);
+		
 		try {
-			colegios_DTO=colegios_Services.findCOL(num);
+			listColegios_DTOs=ServicesLocator.getColegios_Services().selectAllCol();
+			for (int i = 0; i < listColegios_DTOs.size() && !bandera; i++) {
+				if(listColegios_DTOs.get(i).getCodigo().equals(CodigoCole))
+					bandera = true;
+			}
 		} catch (ClassNotFoundException | SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		if(colegios_DTO!=null) {
-			bandera=true;
+	
+		return bandera;
+	}
+	
+	public boolean ColegioNombre() {
+		boolean bandera =false;
+		String nombreColegio=textFieldNombre.getText().toString();
+		try {
+			listColegios_DTOs=ServicesLocator.getColegios_Services().selectAllCol();
+			for (int i = 0; i < listColegios_DTOs.size() && !bandera; i++) {
+				if(listColegios_DTOs.get(i).getName().equals(nombreColegio))
+					bandera = true;
+			}
+		} catch (ClassNotFoundException | SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
 		}
-	    
+		
+		
+		
 		
 		return bandera;
 	}

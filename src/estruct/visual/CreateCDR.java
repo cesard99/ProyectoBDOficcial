@@ -197,11 +197,10 @@ public class CreateCDR extends JFrame {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-	    
-		
-		return bandera;
-		
+	   return bandera;
 	}
+	
+	
 	public boolean CDRnombre() {
 		boolean bandera =false;
 		String nombreCDR=textFieldNombre.getText();
