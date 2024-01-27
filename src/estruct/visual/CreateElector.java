@@ -3,6 +3,10 @@ package estruct.visual;
 import java.awt.BorderLayout;
 import java.awt.EventQueue;
 
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
+
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
@@ -24,12 +28,13 @@ import javax.swing.JButton;
 
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.security.PublicKey;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 
 import javax.swing.SpinnerDateModel;
 
-import com.sun.org.apache.xerces.internal.impl.xpath.regex.ParseException;
+
 
 import dto.CDR_DTO;
 import dto.Circunscripcion_DTO;
@@ -44,15 +49,15 @@ import java.util.Calendar;
 public class CreateElector extends JFrame {
 	private int cantelectorAdd;
 	private JPanel contentPane;
-	private JTextField textField;
-	private JTextField txtDdmmyyyy;
-	private JTextField textField_2;
+	private JTextField textFieldNombre;
+	private JTextField txtfieldFecha;
+	private JTextField textFieldDireccion;
 	private JTextField textField_3;
 	private JTextField textField_4;
 	private JTextField textField_5;
 	private JTextField textField_6;
 	private JTextField textField_7;
-	private JComboBox textField_8;
+	private JComboBox textFieldCausas;
 	private JCheckBox chckbxNewCheckBox;
 	private JComboBox comboBox;
 	private JComboBox comboBox_1;
@@ -97,10 +102,10 @@ public class CreateElector extends JFrame {
 		lblNewLabel.setBounds(20, 42, 158, 14);
 		contentPane.add(lblNewLabel);
 		
-		textField = new JTextField();
-		textField.setBounds(10, 67, 184, 20);
-		contentPane.add(textField);
-		textField.setColumns(10);
+		textFieldNombre = new JTextField();
+		textFieldNombre.setBounds(10, 67, 184, 20);
+		contentPane.add(textFieldNombre);
+		textFieldNombre.setColumns(10);
 		
 		JLabel lblFechaDeNaic = new JLabel("Fecha de Nacimiento");
 		lblFechaDeNaic.setForeground(Color.WHITE);
@@ -111,49 +116,11 @@ public class CreateElector extends JFrame {
 		
 		
         SpinnerDateModel model = new SpinnerDateModel();
-		txtDdmmyyyy = new JTextField();
-		txtDdmmyyyy.setText("dd/mm/yyyy");
-		txtDdmmyyyy.setBounds(10, 123, 184, 20);
-		contentPane.add(txtDdmmyyyy);
+		txtfieldFecha = new JTextField();
+		txtfieldFecha.setText("dd/mm/yyyy");
+		txtfieldFecha.setBounds(10, 123, 184, 20);
+		contentPane.add(txtfieldFecha);
 		
-		
-		
-		/*
-public class FechaNacimientoSpinner extends JFrame {
-    public FechaNacimientoSpinner() {
-        SpinnerDateModel model = new SpinnerDateModel();
-        JSpinner spinner = new JSpinner(model);
-        
-        // Obtener la fecha actual
-        Calendar calendar = Calendar.getInstance();
-        Date fechaActual = calendar.getTime();
-        
-        // Restar 17 años a la fecha actual
-        calendar.add(Calendar.YEAR, -17);
-        Date fechaLimite = calendar.getTime();
-        
-        // Configurar el mínimo y máximo de la fecha permitida
-        model.setStart(fechaLimite);
-        model.setEnd(fechaActual);
-        
-        // Configurar el formato de la fecha
-        JSpinner.DateEditor editor = new JSpinner.DateEditor(spinner, "dd/MM/yyyy");
-        spinner.setEditor(editor);
-        
-        // Añadir el JSpinner al JFrame
-        add(spinner);
-        
-        // Configurar la ventana
-        setSize(200, 100);
-        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        setVisible(true);
-    }
-    
-    public static void main(String[] args) {
-        new FechaNacimientoSpinner();
-    }
-}
-*/
 		
 		JLabel lblNumeroConsecutivo = new JLabel("N\u00FAmero elector:");
 		lblNumeroConsecutivo.setForeground(Color.WHITE);
@@ -172,10 +139,10 @@ public class FechaNacimientoSpinner extends JFrame {
 		lblDireccionParticular.setBounds(22, 221, 158, 14);
 		contentPane.add(lblDireccionParticular);
 		
-		textField_2 = new JTextField();
-		textField_2.setBounds(10, 239, 184, 20);
-		contentPane.add(textField_2);
-		textField_2.setColumns(10);
+		textFieldDireccion = new JTextField();
+		textFieldDireccion.setBounds(10, 239, 184, 20);
+		contentPane.add(textFieldDireccion);
+		textFieldDireccion.setColumns(10);
 		
 		
 			
@@ -251,14 +218,25 @@ public class FechaNacimientoSpinner extends JFrame {
 		contentPane.add(lblVoto);
 		
 		chckbxNewCheckBox = new JCheckBox("Voto");
+		chckbxNewCheckBox.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				if(!chckbxNewCheckBox.isSelected()) {
+					textFieldCausas.setEnabled(true);
+				}else {
+					textFieldCausas.setEnabled(false);
+				}
+				
+			}
+		});
 		chckbxNewCheckBox.setToolTipText("Si \r\nNo");
 		chckbxNewCheckBox.setBounds(59, 266, 21, 23);
 		contentPane.add(chckbxNewCheckBox);
 		
-		textField_8 = new JComboBox();
-		textField_8.setModel(new DefaultComboBoxModel(new String[] {"", "fallecimiento", "Extranjero", "Fuera de Provincia", "Hospitalizados", "Trabajando", "Otras Causas"}));
-		textField_8.setBounds(10, 328, 184, 20);
-		contentPane.add(textField_8);
+		textFieldCausas = new JComboBox();
+		textFieldCausas.setModel(new DefaultComboBoxModel(new String[] {"", "fallecimiento", "Extranjero", "Fuera de Provincia", "Hospitalizados", "Trabajando", "Otras Causas"}));
+		textFieldCausas.setBounds(10, 328, 184, 20);
+		contentPane.add(textFieldCausas);
+		
 		
 		JLabel lblCausasDeLa = new JLabel("Causas de no voto");
 		lblCausasDeLa.setForeground(Color.WHITE);
@@ -308,8 +286,13 @@ public class FechaNacimientoSpinner extends JFrame {
 		JButton btnNewButton = new JButton("Crear");
 		btnNewButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-			crear();
-			dispose();
+				if (validateFields()) {
+		            crear();
+		            dispose();
+		        } else {
+		            JOptionPane.showMessageDialog(null, "Por favor, completa todos los campos correctamente.", "Advertencia", JOptionPane.WARNING_MESSAGE);
+		        }
+			
 			}
 		});
 		btnNewButton.setBackground(new Color(0, 128, 128));
@@ -357,13 +340,13 @@ public class FechaNacimientoSpinner extends JFrame {
 		
 	}
 	public void crear(){
-		String nameElector = textField.getText();
+		String nameElector = textFieldNombre.getText();
 		//String date=  textField_1.getText();
 		
 		
-		String dirr= textField_2.getText();
+		String dirr= textFieldDireccion.getText();
 		Boolean voto = chckbxNewCheckBox.isSelected();
-		String causa = textField_8.getSelectedItem().toString();
+		String causa = textFieldCausas.getSelectedItem().toString();
 		String tipo = comboBox.getSelectedItem().toString();
 		String aux = comboBox_1.getSelectedItem().toString();
 		String aux1 = comboBox_2.getSelectedItem().toString();
@@ -444,4 +427,70 @@ public class FechaNacimientoSpinner extends JFrame {
 			e.printStackTrace();
 		}
 	}
+	
+	
+	public boolean validateFields() {
+		boolean bandera =false;
+		 if (comboBox.getSelectedItem().toString().equals("Elector")) {
+			 if(!textFieldNombre.getText().isEmpty() && 
+					  esFechaValida(txtfieldFecha.getText().toString()) &&
+					  spinner.getValue()!=null && 
+					  !textFieldDireccion.getText().isEmpty() && 
+					  verificarCheckBox()){
+				 bandera=true;
+			 }
+			 
+		 }else 
+			 if(!textFieldNombre.getText().isEmpty() && 
+					 !txtfieldFecha.getText().isEmpty() &&
+					 spinner.getValue()!=null && 
+					 !textFieldDireccion.getText().isEmpty() && 
+					 verificarCheckBox()&& !textField_3.getText().isEmpty() && !textField_4.getText().isEmpty() && !textField_5.getText().isEmpty() &&
+					 !textField_6.getText().isEmpty() && !textField_7.getText().isEmpty() && !comboBox_2.getSelectedItem().toString().isEmpty()) {
+
+				 bandera =true;
+			 }
+		 else {
+			bandera=false;
+		}
+
+	    return bandera;
+	    
+	}
+	
+	
+	
+	
+
+	public boolean verificarCheckBox() {
+		boolean bandera = true;
+		if(chckbxNewCheckBox.isSelected())
+			bandera=true;
+		else 
+			if(!chckbxNewCheckBox.isSelected()) {
+				if(!textFieldCausas.getSelectedItem().toString().isEmpty()) {
+					bandera =true;
+			
+			}
+		}else {
+			bandera=false;
+		}
+		
+		return bandera;
+	}
+	
+	public boolean esFechaValida(String fecha) {
+		if (fecha.trim().isEmpty()) {
+	        return false;
+	    }
+
+	    DateTimeFormatter formato = DateTimeFormatter.ofPattern("dd/MM/yy");
+	    try {
+	        LocalDate.parse(fecha, formato);
+	        return true;
+	    } catch (DateTimeParseException e) {
+	        return false;
+	    }
+	}
+	
 }
