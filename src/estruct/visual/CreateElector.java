@@ -445,7 +445,7 @@ public class CreateElector extends JFrame {
 					 !txtfieldFecha.getText().isEmpty() &&
 					 spinner.getValue()!=null && 
 					 !textFieldDireccion.getText().isEmpty() && 
-					 verificarCheckBox()&& !textField_3.getText().isEmpty() && !textField_4.getText().isEmpty() && !textField_5.getText().isEmpty() &&
+					 verificarCheckBox()&& !textField_3.getText().isEmpty() && esNumeroValido(textField_4.getText().toString()) && !textField_5.getText().isEmpty() &&
 					 !textField_6.getText().isEmpty() && !textField_7.getText().isEmpty() && !comboBox_2.getSelectedItem().toString().isEmpty()) {
 
 				 bandera =true;
@@ -492,5 +492,14 @@ public class CreateElector extends JFrame {
 	        return false;
 	    }
 	}
+	
+	public boolean esNumeroValido(String numero) {
+	    if (numero.matches("\\d+") && !numero.isEmpty() && numero.length() == 8) {
+	        return true;
+	    } else {
+	        return false;
+	    }
+	}
+
 	
 }
