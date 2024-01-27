@@ -6,7 +6,11 @@ import java.awt.EventQueue;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
+import javax.swing.text.AttributeSet;
+import javax.swing.text.BadLocationException;
+import javax.swing.text.DocumentFilter;
 
+import dto.CDR_DTO;
 import estruct.services.CDR_Services;
 import estruct.services.Registrer_Services;
 import estruct.services.ServicesLocator;
@@ -17,6 +21,7 @@ import javax.swing.JOptionPane;
 
 import java.awt.Font;
 import java.sql.SQLException;
+import dto.CDR_DTO;
 
 import javax.swing.JComboBox;
 import javax.swing.JTextField;
@@ -32,6 +37,7 @@ public class CreateCDR extends JFrame {
 	private JTextField textFieldNombrePresidente;
 	JComboBox comboBoxColegio = new JComboBox();
 	private CDR_Services cdr_Services = ServicesLocator.getCDR_Services();
+	private CDR_DTO cdr_DTO;
 
 	/**
 	 * Launch the application.
@@ -110,7 +116,11 @@ public class CreateCDR extends JFrame {
 			public void actionPerformed(ActionEvent e) {
 				if(!comboBoxColegio.getSelectedItem().toString().isEmpty()&& !textFieldCodigo.getText().isEmpty()&&
 						!textFieldNombre.getText().isEmpty() && !textFieldNombrePresidente.getText().isEmpty()) {
+					if(!CDREncontrado()) {
 					crear();
+					}else {
+						JOptionPane.showMessageDialog(null, "El CDR se encuentra en la Base de Datos", "Advertencia", JOptionPane.WARNING_MESSAGE);
+					}
 				}else {
 					JOptionPane.showMessageDialog(null, "Por favor, completa todos los campos correctamente.", "Advertencia", JOptionPane.WARNING_MESSAGE);
 				}
@@ -147,5 +157,27 @@ public class CreateCDR extends JFrame {
 				}
 		
 	}
+	
+	public boolean CDREncontrado() {
+		boolean bandera =false;
+		String codeCDR=textFieldCodigo.getText();
+		int num=Integer.parseInt(codeCDR);
+		try {
+			cdr_DTO=cdr_Services.findCDR(num);
+		} catch (ClassNotFoundException | SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		if(cdr_DTO!=null) {
+			bandera=true;
+		}
+	    
+		
+		return bandera;
+		
+	}
+	
+	
+	
 
 }

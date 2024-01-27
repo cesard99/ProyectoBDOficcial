@@ -127,6 +127,12 @@ public class Principal extends JFrame {
 		menuBar.add(btnNewButton_4);
 		
 		JButton btnCrearCDR = new JButton("Crear CDR");
+		btnCrearCDR.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				CreateCDR ventanaCdr = new CreateCDR();
+				ventanaCdr.setVisible(true);
+			}
+		});
 		btnCrearCDR.setBackground(new Color(0, 128, 128));
 		menuBar.add(btnCrearCDR);
 		
