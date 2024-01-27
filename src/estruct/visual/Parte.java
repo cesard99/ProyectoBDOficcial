@@ -67,7 +67,7 @@ public class Parte extends JFrame {
 		setResizable(false);
 		setTitle("Parte");
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-		setBounds(100, 100, 522, 529);
+		setBounds(100, 100, 554, 529);
 		this.setLocationRelativeTo(null);
 		contentPane = new JPanel();
 		contentPane.setBackground(new Color(0, 128, 128));

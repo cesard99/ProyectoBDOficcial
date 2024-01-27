@@ -8,6 +8,8 @@ import java.sql.Statement;
 import java.util.ArrayList;
 
 import dto.Registrer_DTO;
+import estruct.util.Definicion;
+import estruct.util.Encription;
 
 
 
@@ -16,6 +18,7 @@ public class Registrer_Services {
 			throws SQLException, ClassNotFoundException{
 		String query = "SELECT users_insert(?,?,?,?)";
 		java.sql.Connection connection = ServicesLocator.getConnection();
+		userpass=Encription.encode(Definicion.SECRET_KEY_PASSWORD, userpass);
 		PreparedStatement preparedStatement = connection.prepareStatement(query);
 		preparedStatement.setString(1, usser);
 		preparedStatement.setString(2, userpass);
@@ -40,6 +43,7 @@ public class Registrer_Services {
 			throws SQLException, ClassNotFoundException{
 		String query = "SELECT users__update(?,?,?,?,?)";
 		java.sql.Connection connection = ServicesLocator.getConnection();
+		userpass=Encription.encode(Definicion.SECRET_KEY_PASSWORD, userpass);
 		PreparedStatement preparedStatement = connection.prepareStatement(query);
 		preparedStatement.setString(1, usser);
 		preparedStatement.setString(2, userpass);

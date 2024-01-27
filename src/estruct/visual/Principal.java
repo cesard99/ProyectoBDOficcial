@@ -153,6 +153,16 @@ public class Principal extends JFrame {
 			
 			}
 		});
+		
+		JButton btnCrearUsuario = new JButton("Crear Usuario");
+		btnCrearUsuario.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				CreateUser ventanaCreateUser = new CreateUser();
+				ventanaCreateUser.setVisible(true);
+			}
+		});
+		btnCrearUsuario.setBackground(new Color(0, 128, 128));
+		menuBar.add(btnCrearUsuario);
 		BtnCreateElector.setBackground(new Color(0, 128, 128));
 		menuBar.add(BtnCreateElector);
 		
