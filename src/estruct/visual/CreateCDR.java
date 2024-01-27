@@ -6,12 +6,23 @@ import java.awt.EventQueue;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
+
+import estruct.services.CDR_Services;
+import estruct.services.Registrer_Services;
+import estruct.services.ServicesLocator;
+
 import java.awt.Color;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
+
 import java.awt.Font;
+import java.sql.SQLException;
+
 import javax.swing.JComboBox;
 import javax.swing.JTextField;
 import javax.swing.JButton;
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
 
 public class CreateCDR extends JFrame {
 
@@ -19,6 +30,8 @@ public class CreateCDR extends JFrame {
 	private JTextField textFieldCodigo;
 	private JTextField textFieldNombre;
 	private JTextField textFieldNombrePresidente;
+	JComboBox comboBoxColegio = new JComboBox();
+	private CDR_Services cdr_Services = ServicesLocator.getCDR_Services();
 
 	/**
 	 * Launch the application.
@@ -55,7 +68,7 @@ public class CreateCDR extends JFrame {
 		lblNewLabel.setBounds(226, 37, 167, 21);
 		contentPane.add(lblNewLabel);
 		
-		JComboBox comboBoxColegio = new JComboBox();
+		
 		comboBoxColegio.setBounds(221, 70, 121, 22);
 		contentPane.add(comboBoxColegio);
 		
@@ -93,14 +106,46 @@ public class CreateCDR extends JFrame {
 		contentPane.add(textFieldNombrePresidente);
 		
 		JButton btnAceptar = new JButton("Aceptar");
+		btnAceptar.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				if(!comboBoxColegio.getSelectedItem().toString().isEmpty()&& !textFieldCodigo.getText().isEmpty()&&
+						!textFieldNombre.getText().isEmpty() && !textFieldNombrePresidente.getText().isEmpty()) {
+					crear();
+				}else {
+					JOptionPane.showMessageDialog(null, "Por favor, completa todos los campos correctamente.", "Advertencia", JOptionPane.WARNING_MESSAGE);
+				}
+			}
+		});
 		btnAceptar.setBackground(new Color(0, 128, 128));
 		btnAceptar.setBounds(36, 298, 89, 23);
 		contentPane.add(btnAceptar);
 		
 		JButton btnCancelar = new JButton("Cancelar");
+		btnCancelar.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				dispose();
+			}
+		});
 		btnCancelar.setBackground(new Color(0, 128, 128));
 		btnCancelar.setBounds(440, 298, 89, 23);
 		contentPane.add(btnCancelar);
+	}
+	
+	public void crear() {
+		String circunscripcion=comboBoxColegio.getSelectedItem().toString();
+		String nombreCDR=textFieldNombre.getText();
+		String codigoCDR=textFieldCodigo.getText();
+		String nombrePresi=textFieldNombrePresidente.getText();
+				try {
+					cdr_Services.insertCDR(codigoCDR, nombreCDR, codigoCDR, circunscripcion);
+				} catch (ClassNotFoundException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				} catch (SQLException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+		
 	}
 
 }

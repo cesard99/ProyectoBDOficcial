@@ -81,4 +81,18 @@ public class CDR_Services {
 		connection.close();
 		return cdr;
 	}
+	
+	public void insertCDR(String codCDR, String nomCDR, String nomPresidente, String codCol) 
+	        throws SQLException, ClassNotFoundException{
+	    String query = "{call public.cdr_insert(?, ?, ?, ?)}";
+	    java.sql.Connection connection = ServicesLocator.getConnection();
+	    CallableStatement callableStatement = connection.prepareCall(query);
+	    callableStatement.setString(1, codCDR);
+	    callableStatement.setString(2, nomCDR);
+	    callableStatement.setString(3, nomPresidente);
+	    callableStatement.setString(4, codCol);
+	    callableStatement.execute();
+	    callableStatement.close();
+	    connection.close();
+	}
 }
