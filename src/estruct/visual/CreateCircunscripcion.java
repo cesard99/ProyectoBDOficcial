@@ -2,6 +2,7 @@ package estruct.visual;
 
 import java.awt.BorderLayout;
 import java.awt.EventQueue;
+import dto.Circunscripcion_DTO;
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;
@@ -32,8 +33,9 @@ public class CreateCircunscripcion extends JFrame {
 	private JTextField textFieldNombre;
 	JComboBox comboBoxMunicipio = new JComboBox();
 	private Circunscripcion_Services circunscripcion_Services = ServicesLocator.getCircunscripcion_Services();
-	private Circunscripcion_DTO circunscripcion_DTO;
+	private Circunscripcion_DTO circunscripcion_DTO1;
 	private ArrayList<Municipio_DTO>listMunicipio_DTO;
+	private ArrayList<Circunscripcion_DTO> Listcircunscripcion_DTO;
 	
 	/**
 	 * Launch the application.
@@ -103,7 +105,11 @@ public class CreateCircunscripcion extends JFrame {
 			public void actionPerformed(ActionEvent e) {
 				if(!comboBoxMunicipio.getSelectedItem().toString().isEmpty() && !textFieldCodigo.getText().toString().isEmpty() && textFieldNombre.getText().toString().isEmpty()){
 					if(!existeCircunscripcion()) {
+						if(!circunscripcionNombre()) {
 						crear();
+						}else {
+							JOptionPane.showMessageDialog(null, "Ya se encuentra una Circunscripcion con ese nombre", "Advertencia", JOptionPane.WARNING_MESSAGE);
+						}
 					}else {
 						JOptionPane.showMessageDialog(null, "La Circunscripción se encuentra en la Base de Datos", "Advertencia", JOptionPane.WARNING_MESSAGE);
 					}
@@ -159,14 +165,40 @@ public class CreateCircunscripcion extends JFrame {
 	
 	public boolean existeCircunscripcion() {
 		boolean bandera=false;
-		int num=Integer.parseInt(textFieldCodigo.getText().toString());
+		String CodeCircunscripcion=textFieldCodigo.getText().toString();
+		
+		
 		try {
-			circunscripcion_DTO=circunscripcion_Services.findCir(num);
+			Listcircunscripcion_DTO= ServicesLocator.getCircunscripcion_Services().selectAllCIR();
+			for (int i = 0; i < Listcircunscripcion_DTO.size() && !bandera; i++) {
+				if(Listcircunscripcion_DTO.get(i).getCodigo().equals(CodeCircunscripcion))
+					bandera = true;
+			}
 		} catch (ClassNotFoundException | SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+		
+		
 		return bandera;
+	}
+	
+	public boolean circunscripcionNombre() {
+		boolean bandera =false;
+		String nombreString=textFieldNombre.getText().toString();
+		try {
+			Listcircunscripcion_DTO=ServicesLocator.getCircunscripcion_Services().selectAllCIR();
+			for (int i = 0; i < Listcircunscripcion_DTO.size() && !bandera; i++) {
+				if(Listcircunscripcion_DTO.get(i).getNombre().equals(nombreString))
+					bandera = true;
+			}
+		} catch (ClassNotFoundException | SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		
+		return bandera ;
 	}
 	
 	
