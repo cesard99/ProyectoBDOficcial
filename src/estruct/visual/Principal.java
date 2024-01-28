@@ -23,6 +23,8 @@ import dto.Registrer_DTO;
 import dto.Reporte1;
 import dto.Reporte2;
 import dto.Reporte3;
+import dto.Reporte4;
+import dto.Reporte5;
 import dto.Votacion_DTO;
 import estruct.services.Municipio_Services;
 import estruct.services.Registrer_Services;
@@ -35,6 +37,8 @@ import estruct.util.CreateElectTablemodel;
 import estruct.util.CreateMunicipioTablemodel;
 import estruct.util.CreateNominadoTablemodel;
 import estruct.util.CreateReporteMunMNomTablemodel;
+import estruct.util.CreateReportelistaNominaTablemodel;
+import estruct.util.CreateReportelistaParteTablemodel;
 import estruct.util.CreateUserTablemodel;
 import estruct.util.FframeC;
 import estruct.util.FframeC2;
@@ -95,7 +99,7 @@ public class Principal extends JFrame {
 		setTitle("Principal");
 		setIconImage(Toolkit.getDefaultToolkit().getImage(Principal.class.getResource("/img/votacion.png")));
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-		setBounds(100, 100, 990, 569);
+		setBounds(100, 100, 1069, 569);
 		contentPane = new JPanel();
 		contentPane.setBackground(new Color(0, 128, 128));
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
@@ -104,7 +108,7 @@ public class Principal extends JFrame {
 		contentPane.setLayout(null);
 		
 		JMenuBar menuBar = new JMenuBar();
-		menuBar.setBounds(0, 0, 974, 22);
+		menuBar.setBounds(0, 0, 1043, 22);
 		contentPane.add(menuBar);
 		
 		JButton btnNewButton = new JButton("Parte");
@@ -333,16 +337,16 @@ public class Principal extends JFrame {
 			public void actionPerformed(ActionEvent arg0) {
 				String r=comboBoxResumen.getSelectedItem().toString();
 				if(r.equalsIgnoreCase("municipio Mas Nominado")){
-					crearreporte3();
+					crearreporte3();//ok
 				}else if(r.equalsIgnoreCase("Listado Nominados")){
-					crearreporte4();
+					crearreporte4();//ok
 				}else if(r.equalsIgnoreCase("Listado Parte")){
-					crearreporte5();
+					crearreporte5();//ok
 				}else if(r.equalsIgnoreCase("Resumen Municipio")){
 					crearreporte6();
 					
 				}else if(r.equalsIgnoreCase("Resumen Proceso")){
-					
+					crearreporte7();
 				}		
 				
 			}
@@ -354,7 +358,7 @@ public class Principal extends JFrame {
 		
 		
 		JScrollPane scrollPane = new JScrollPane();
-		scrollPane.setBounds(289, 21, 685, 508);
+		scrollPane.setBounds(289, 21, 754, 508);
 		contentPane.add(scrollPane);
 		
 		table = new JTable();
@@ -779,7 +783,7 @@ public void crearreporte3(){
 	}
 public void crearreporte4(){
 	
-	CreateReporteMunMNomTablemodel modelo = new CreateReporteMunMNomTablemodel(){
+	CreateReportelistaNominaTablemodel modelo = new CreateReportelistaNominaTablemodel(){
 		private static final long serialVersionUID = 1L;
 		@Override
 		public boolean isCellEditable(int row, int column) {
@@ -789,11 +793,11 @@ public void crearreporte4(){
 	table.setModel(modelo);
 	
 		try{
-			ArrayList<Reporte3> lis= ServicesLocator.getReportes_Services().selectreporte3MunCantNom();
-			for(Reporte3 m  :lis){
+			ArrayList<Reporte4> lis= ServicesLocator.getReportes_Services().selectreporte4ListNom();
+			for(Reporte4 m  :lis){
 				
 				
-				String[] datos = {m.getNomMun(),Integer.toString(m.getCantNOM())};
+				String[] datos = {m.getNomMun(),m.getNomCir(),m.getNumVuelta(),m.getNomYapELE(),m.getEdad(),m.getIntegraRev(),m.getDirEle(),m.getTelefono(),m.getOcupacion(),m.getProfecion(),m.getBiblio()};
 				modelo.addRow(datos);
 			}
 		} catch (ClassNotFoundException | SQLException e) {
@@ -803,6 +807,30 @@ public void crearreporte4(){
 	}
 public void crearreporte5(){
 	
+	CreateReportelistaParteTablemodel modelo = new CreateReportelistaParteTablemodel(){
+		private static final long serialVersionUID = 1L;
+		@Override
+		public boolean isCellEditable(int row, int column) {
+			return false;
+		}
+	};
+	table.setModel(modelo);
+	
+		try{
+			ArrayList<Reporte5> lis= ServicesLocator.getReportes_Services().selectreporte5ListPart();
+			for(Reporte5 m  :lis){
+				
+				
+				String[] datos = {m.getNomMun(),m.getNomCir(),m.getNomCol(),m.getNomCDR(),m.getNumVuelta(),m.getFecha_hora(),m.getNumparte(),m.getCantElectQVotan(),m.getCantElectAdd(),m.getCantElectEliminados(),m.getTotalListadoElectores(),m.getCantElectoresVotadParteAnte()};
+				modelo.addRow(datos);
+			}
+		} catch (ClassNotFoundException | SQLException e) {
+			e.printStackTrace();
+		
+		}
+	}
+public void crearreporte6(){
+	
 	CreateReporteMunMNomTablemodel modelo = new CreateReporteMunMNomTablemodel(){
 		private static final long serialVersionUID = 1L;
 		@Override
@@ -825,7 +853,9 @@ public void crearreporte5(){
 		
 		}
 	}
-public void crearreporte6(){
+
+
+public void crearreporte7(){
 	
 	CreateReporteMunMNomTablemodel modelo = new CreateReporteMunMNomTablemodel(){
 		private static final long serialVersionUID = 1L;

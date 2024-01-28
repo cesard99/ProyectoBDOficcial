@@ -56,6 +56,7 @@ public class CreateMunicipio extends JFrame {
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		setBounds(100, 100, 525, 350);
 		contentPane = new JPanel();
+		this.setLocationRelativeTo(null);
 		contentPane.setBackground(new Color(0, 128, 128));
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);

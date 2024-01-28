@@ -65,6 +65,7 @@ public class CreateColegio extends JFrame {
 		setBounds(100, 100, 553, 395);
 		setResizable(false);
 		contentPane = new JPanel();
+		this.setLocationRelativeTo(null);
 		contentPane.setBackground(new Color(0, 139, 139));
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
