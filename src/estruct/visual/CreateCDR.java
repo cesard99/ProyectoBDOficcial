@@ -42,6 +42,7 @@ public class CreateCDR extends JFrame {
 	private JTextField textFieldNombrePresidente;
 	JComboBox comboBoxColegio = new JComboBox();
 	private ArrayList<Colegios_DTO>listColegios_DTOs;
+	private ArrayList<CDR_DTO>listCdr_DTOs;
 	private CDR_Services cdr_Services = ServicesLocator.getCDR_Services();
 	private CDR_DTO cdr_DTO;
 
@@ -122,13 +123,23 @@ public class CreateCDR extends JFrame {
 		JButton btnAceptar = new JButton("Aceptar");
 		btnAceptar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+//ojo aqui estan las validaciones cuando vayas a copiar 
 				if(!comboBoxColegio.getSelectedItem().toString().isEmpty()&& !textFieldCodigo.getText().isEmpty()&&
 						!textFieldNombre.getText().isEmpty() && !textFieldNombrePresidente.getText().isEmpty()) {
-					if(!CDREncontrado()) {
-					crear();
-					}else {
-						JOptionPane.showMessageDialog(null, "El CDR se encuentra en la Base de Datos", "Advertencia", JOptionPane.WARNING_MESSAGE);
-					}
+					if(!NoMas3CDR()){//cuando copies las validaciones a las otras clases tienes que eliminar esta, esta es solo para cdr
+						if(!CDREncontrado()) {
+							if(!CDRnombre()){
+							crear();
+							dispose();
+							}else {
+								JOptionPane.showMessageDialog(null, "Ya se encuentra un CDR con ese nombre", "Advertencia", JOptionPane.WARNING_MESSAGE);
+							}
+						}else {
+							JOptionPane.showMessageDialog(null, "El CDR se encuentra en la Base de Datos", "Advertencia", JOptionPane.WARNING_MESSAGE);
+						}
+					}else{
+						JOptionPane.showMessageDialog(null, "No se puede insertar un nuevo CDR: el colegio"+comboBoxColegio.getSelectedItem()+" no puede tener mas de 3 colegio", "Advertencia", JOptionPane.WARNING_MESSAGE);
+					}//cuando copies las validaciones a las otras clases tienes que eliminar esta, esta es solo para cdr
 				}else {
 					JOptionPane.showMessageDialog(null, "Por favor, completa todos los campos correctamente.", "Advertencia", JOptionPane.WARNING_MESSAGE);
 				}
@@ -153,12 +164,15 @@ public class CreateCDR extends JFrame {
 	}
 	
 	public void crear() {
-		String circunscripcion=comboBoxColegio.getSelectedItem().toString();
+		String colegio=listColegios_DTOs.get(comboBoxColegio.getSelectedIndex()).getCodigo();
 		String nombreCDR=textFieldNombre.getText();
 		String codigoCDR=textFieldCodigo.getText();
 		String nombrePresi=textFieldNombrePresidente.getText();
+				
+		
 				try {
-					cdr_Services.insertCDR(codigoCDR, nombreCDR, codigoCDR, circunscripcion);
+					ServicesLocator.getCDR_Services().insertCDR(codigoCDR, nombreCDR, nombrePresi, colegio);
+					JOptionPane.showMessageDialog(null, "CDR insertado con exito", "Información", JOptionPane.INFORMATION_MESSAGE);
 				} catch (ClassNotFoundException e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
@@ -172,22 +186,64 @@ public class CreateCDR extends JFrame {
 	public boolean CDREncontrado() {
 		boolean bandera =false;
 		String codeCDR=textFieldCodigo.getText();
-		int num=Integer.parseInt(codeCDR);
+		//int num=Integer.parseInt(codeCDR);
 		try {
-			cdr_DTO=cdr_Services.findCDR(num);
+			listCdr_DTOs= ServicesLocator.getCDR_Services().selectAllCDr();
+			for (int i = 0; i < listCdr_DTOs.size() && !bandera; i++) {
+				if(listCdr_DTOs.get(i).getCodigo().equals(codeCDR))
+					bandera = true;
+			}
 		} catch (ClassNotFoundException | SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
-		}
-		if(cdr_DTO!=null) {
-			bandera=true;
 		}
 	    
 		
 		return bandera;
 		
 	}
-	
+	public boolean CDRnombre() {
+		boolean bandera =false;
+		String nombreCDR=textFieldNombre.getText();
+		//int num=Integer.parseInt(codeCDR);
+		try {
+			listCdr_DTOs= ServicesLocator.getCDR_Services().selectAllCDr();
+			for (int i = 0; i < listCdr_DTOs.size() && !bandera; i++) {
+				if(listCdr_DTOs.get(i).getName().equals(nombreCDR))
+					bandera = true;
+			}
+		} catch (ClassNotFoundException | SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	    
+		
+		return bandera;
+		
+	}
+	public boolean NoMas3CDR() {
+		String colegio=listColegios_DTOs.get(comboBoxColegio.getSelectedIndex()).getCodigo();
+		boolean bandera =false;
+		int cantCDR = 0;
+		String codeCDR=textFieldCodigo.getText();
+		//int num=Integer.parseInt(codeCDR);
+		try {
+			listCdr_DTOs= ServicesLocator.getCDR_Services().selectAllCDr();
+			for (int i = 0; i < listCdr_DTOs.size() && !bandera; i++) {
+				if(listCdr_DTOs.get(i).getCodigoCole().equals(colegio))
+					cantCDR++;
+					
+			}if(cantCDR==3)
+				bandera = true;
+		} catch (ClassNotFoundException | SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	    
+		
+		return bandera;
+		
+	}
 	public void llenarComboCol(){
 		try {
 			listColegios_DTOs = ServicesLocator.getColegios_Services().selectAllCol();

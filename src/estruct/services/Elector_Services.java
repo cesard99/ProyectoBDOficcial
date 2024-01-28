@@ -21,7 +21,7 @@ public class Elector_Services {
 		preparedStatement.setString(2, numelect);
 		preparedStatement.setString(3, nombre);
 		preparedStatement.setString(4, direc);
-		preparedStatement.setDate(5, (java.sql.Date) date);
+		preparedStatement.setDate(5, new java.sql.Date(date.getTime()));
 		preparedStatement.execute();
 		preparedStatement.close();
 		connection.close();

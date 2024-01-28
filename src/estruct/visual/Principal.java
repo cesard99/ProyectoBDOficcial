@@ -113,7 +113,7 @@ public class Principal extends JFrame {
 				Locale locale = new Locale("es","ES");
 				JOptionPane.setDefaultLocale(locale);
 
-				int result = JOptionPane.showConfirmDialog(null,"�Seguro que desea eliminar el usuario seleccionado?", "Eliminar usuario",
+				int result = JOptionPane.showConfirmDialog(null,"�Seguro que desea eliminar la fila seleccionado?", "Eliminar ",
 						JOptionPane.YES_NO_OPTION,
 						JOptionPane.QUESTION_MESSAGE);
 				if(result == JOptionPane.YES_OPTION){

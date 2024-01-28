@@ -2,8 +2,8 @@ package estruct.visual;
 
 import java.awt.BorderLayout;
 import java.awt.EventQueue;
-
 import java.time.LocalDate;
+import java.time.Period;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 
@@ -36,11 +36,23 @@ import javax.swing.SpinnerDateModel;
 
 
 
+
+
+
+
+
+
+import org.postgresql.core.Parser;
+
+import com.sun.org.apache.xerces.internal.impl.xpath.regex.REUtil;
+
 import dto.CDR_DTO;
 import dto.Circunscripcion_DTO;
 import estruct.services.ServicesLocator;
 
 import java.sql.SQLException;
+import java.text.DateFormat;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
@@ -289,8 +301,22 @@ public class CreateElector extends JFrame {
 		btnNewButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				if (validateFields()) {
-		            crear();
-		            dispose();
+					//String fechaString = "31/12/2022";
+					DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+					LocalDate fecha = LocalDate.parse(txtfieldFecha.getText(), formatter);
+					LocalDate hoy= LocalDate.now();
+					//LocalDate fecha = LocalDate.of(1998, 1, 1); // Supongamos que la persona nació el 1 de enero de 1998
+
+					Period periodo = Period.between(fecha, hoy);
+					if (periodo.getYears() >= 16) {
+					    System.out.println("La persona tiene 16 años o más.");
+					    crear();
+			            dispose();
+			           
+					} else {
+						JOptionPane.showMessageDialog(null, "No se puede agregar un elector con menos de 16 años", "Advertencia", JOptionPane.WARNING_MESSAGE);
+					}
+		            	
 		        } else {
 		            JOptionPane.showMessageDialog(null, "Por favor, completa todos los campos correctamente.", "Advertencia", JOptionPane.WARNING_MESSAGE);
 		        }
@@ -355,7 +381,14 @@ public class CreateElector extends JFrame {
 		String codigoCDR = null;
 		String codigoCIR = null;
 		String numElect = spinner.getValue().toString();
-		
+		DateFormat formatoFecha = new SimpleDateFormat("dd/MM/yyyy");
+		Date d = null;
+		try {
+			 d = formatoFecha.parse(txtfieldFecha.getText());
+		} catch (ParseException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}		
 		
 		for (int i = 0; i < listcdr_DTOs.size(); i++) {
 			if(aux.equalsIgnoreCase(listcdr_DTOs.get(i).getName())){
@@ -369,8 +402,9 @@ public class CreateElector extends JFrame {
 		}}		
 		if (tipo.equals("Elector")) {
 			try {
-				ServicesLocator.getElector_Services().insertElector(codigoCDR, numElect, nameElector, dirr, null);
+				ServicesLocator.getElector_Services().insertElector(codigoCDR, numElect, nameElector, dirr, d);
 				cantelectorAdd++;
+				JOptionPane.showMessageDialog(null, "Elector insertado con exito", "Información", JOptionPane.INFORMATION_MESSAGE);
 			} catch (ClassNotFoundException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
@@ -386,9 +420,10 @@ public class CreateElector extends JFrame {
 				String profesion = textField_6.getText();
 				String biblio = textField_7.getText();
 				
-				ServicesLocator.getElector_Services().insertElector(codigoCDR, numElect, nameElector, dirr, null);
+				ServicesLocator.getElector_Services().insertElector(codigoCDR, numElect, nameElector, dirr, d);
 				ServicesLocator.getNominado_Services().insertnominado(codigoCDR, numElect, ocupa, profesion, telef, inteRev, biblio, codigoCIR);
 				cantelectorAdd++;
+				JOptionPane.showMessageDialog(null, "Nominado insertado con exito", "Información", JOptionPane.INFORMATION_MESSAGE);
 			} catch (ClassNotFoundException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
@@ -485,13 +520,15 @@ public class CreateElector extends JFrame {
 		if (fecha.trim().isEmpty()) {
 	        return false;
 	    }
-
-	    DateTimeFormatter formato = DateTimeFormatter.ofPattern("dd/MM/yy");
+		//return true;
+		LocalDate d = LocalDate.now();
+	   DateTimeFormatter formato = DateTimeFormatter.ofPattern("dd/MM/yyyy");
 	    try {
 	        LocalDate.parse(fecha, formato);
 	        return true;
 	    } catch (DateTimeParseException e) {
-	        return false;
+	    	JOptionPane.showMessageDialog(null, "¡la fecha tiene que tener el formato dd/MM/yyyy: ejemplo 24/02/2024 !", "Error", JOptionPane.ERROR_MESSAGE);
+	    	return false;
 	    }
 	}
 	
@@ -499,6 +536,7 @@ public class CreateElector extends JFrame {
 	    if (numero.matches("\\d+") && !numero.isEmpty() && numero.length() == 8) {
 	        return true;
 	    } else {
+	    	JOptionPane.showMessageDialog(null, "¡El numero de telefono debe tener 8 dijitos!", "Error", JOptionPane.ERROR_MESSAGE);
 	        return false;
 	    }
 	}
