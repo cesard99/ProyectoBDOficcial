@@ -24,6 +24,8 @@ import dto.Registrer_DTO;
 
 import estruct.services.Registrer_Services;
 import estruct.services.ServicesLocator;
+import estruct.util.Definicion;
+import estruct.util.Encription;
 import estruct.util.validaciones;
 @SuppressWarnings("serial")
 public class login extends JFrame {
@@ -130,27 +132,15 @@ public class login extends JFrame {
 		String passUser=textFieldUserPass.getText();
 		
 		validaciones.usuario(null, nameUser, passUser);
-		/*if(nameUser.equals("Cesar")|| nameUser.equals("Raul")){
-            if(passUser.equals("cesar123") || passUser.equals("raul123")){
-                bandera=true;
-            } else {
-            	LblError.setText(" La contraseña es incorrecta");
-            	LblError.setVisible(true);
-            }
-            
-        }else {
-        	LblError.setText("El nombre es incorrecto");
-        	LblError.setVisible(true);
-        }
 		
-		return bandera;*/
 		try{
 			
 			boolean esta = false;
 			for(int i=0; i<listaUsuarios.size() && !esta; i++){
 				Registrer_DTO u = listaUsuarios.get(i);
 				if(u.getName().equals(nameUser)){
-					if(u.getPss().equals(passUser)){
+					String pass=Encription.decode(Definicion.SECRET_KEY_PASSWORD, u.getPss());
+					if(pass.equals(passUser)){
 						esta = true;
 						user = u;
 					}
