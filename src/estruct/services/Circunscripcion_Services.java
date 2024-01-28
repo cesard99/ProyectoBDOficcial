@@ -82,6 +82,19 @@ public class Circunscripcion_Services  {
 			connection.close();
 			return cir;
 		}
+		
+		public void insertCircunscripcion(String codigoCircunscripcion, String nombreCircunscripcion, String municipio) 
+		        throws SQLException, ClassNotFoundException{
+		    String query = "{call public.circunscripcion_insert(?, ?, ?)}";
+		    java.sql.Connection connection = ServicesLocator.getConnection();
+		    CallableStatement callableStatement = connection.prepareCall(query);
+		    callableStatement.setString(1, codigoCircunscripcion);
+		    callableStatement.setString(2, nombreCircunscripcion);
+		    callableStatement.setString(3, municipio);
+		    callableStatement.execute();
+		    callableStatement.close();
+		    connection.close();
+		}
 	}
 	     
 	    

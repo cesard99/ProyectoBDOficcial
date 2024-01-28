@@ -82,4 +82,18 @@ public class Colegios_Services {
 		connection.close();
 		return col;
 	}
+	
+	public void insertColegioElectoral(String codigoColegio, String nombreColegio, String direccionColegio, String circunscripcion) 
+	        throws SQLException, ClassNotFoundException{
+	    String query = "{call public.colegioelectoral_insert(?, ?, ?, ?)}";
+	    java.sql.Connection connection = ServicesLocator.getConnection();
+	    CallableStatement callableStatement = connection.prepareCall(query);
+	    callableStatement.setString(1, codigoColegio);
+	    callableStatement.setString(2, nombreColegio);
+	    callableStatement.setString(3, direccionColegio);
+	    callableStatement.setString(4, circunscripcion);
+	    callableStatement.execute();
+	    callableStatement.close();
+	    connection.close();
+	}
 }

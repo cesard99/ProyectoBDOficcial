@@ -82,6 +82,18 @@ public class Municipio_Services {
 		connection.close();
 		return muni;
 	}
+	
+	public void insertMunicipio(String codigoMunicipio, String nombreMunicipio) 
+	        throws SQLException, ClassNotFoundException{
+	    String query = "{call public.municipio_insert(?, ?)}";
+	    java.sql.Connection connection = ServicesLocator.getConnection();
+	    CallableStatement callableStatement = connection.prepareCall(query);
+	    callableStatement.setString(1, codigoMunicipio);
+	    callableStatement.setString(2, nombreMunicipio);
+	    callableStatement.execute();
+	    callableStatement.close();
+	    connection.close();
+	}
 }
      
     

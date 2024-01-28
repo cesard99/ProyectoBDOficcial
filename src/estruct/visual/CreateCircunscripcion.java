@@ -6,19 +6,32 @@ import java.awt.EventQueue;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
+
+import dto.Circunscripcion_DTO;
+import estruct.services.Circunscripcion_Services;
+import estruct.services.ServicesLocator;
+
 import java.awt.Color;
 import javax.swing.JComboBox;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
+
 import java.awt.Font;
 import javax.swing.JTextField;
 import javax.swing.JButton;
+import java.awt.event.ActionListener;
+import java.sql.SQLException;
+import java.awt.event.ActionEvent;
 
 public class CreateCircunscripcion extends JFrame {
 
 	private JPanel contentPane;
 	private JTextField textFieldCodigo;
 	private JTextField textFieldNombre;
-
+	JComboBox comboBoxMunicipio = new JComboBox();
+	private Circunscripcion_Services circunscripcion_Services = ServicesLocator.getCircunscripcion_Services();
+	private Circunscripcion_DTO circunscripcion_DTO;
+	
 	/**
 	 * Launch the application.
 	 */
@@ -48,7 +61,7 @@ public class CreateCircunscripcion extends JFrame {
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
 		
-		JComboBox comboBoxMunicipio = new JComboBox();
+		
 		comboBoxMunicipio.setBounds(190, 58, 152, 22);
 		contentPane.add(comboBoxMunicipio);
 		
@@ -81,13 +94,70 @@ public class CreateCircunscripcion extends JFrame {
 		contentPane.add(textFieldNombre);
 		
 		JButton btnAceptar = new JButton("Aceptar");
+		btnAceptar.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				if(!comboBoxMunicipio.getSelectedItem().toString().isEmpty() && !textFieldCodigo.getText().toString().isEmpty() && textFieldNombre.getText().toString().isEmpty()){
+					if(!existeCircunscripcion()) {
+						crear();
+					}else {
+						JOptionPane.showMessageDialog(null, "La Circunscripción se encuentra en la Base de Datos", "Advertencia", JOptionPane.WARNING_MESSAGE);
+					}
+				}else {
+					JOptionPane.showMessageDialog(null, "Por favor, completa todos los campos correctamente.", "Advertencia", JOptionPane.WARNING_MESSAGE);
+				}
+			}
+		});
 		btnAceptar.setBackground(new Color(0, 128, 128));
 		btnAceptar.setBounds(80, 248, 89, 23);
 		contentPane.add(btnAceptar);
 		
 		JButton btnCancelar = new JButton("Cancelar");
+		btnCancelar.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				dispose();
+			}
+		});
 		btnCancelar.setBackground(new Color(0, 128, 128));
 		btnCancelar.setBounds(340, 248, 89, 23);
 		contentPane.add(btnCancelar);
+		
+		JLabel lblError = new JLabel("Complete todos Los campos Correctamente");
+		lblError.setFont(new Font("Tahoma", Font.PLAIN, 14));
+		lblError.setForeground(Color.RED);
+		lblError.setBounds(121, 206, 281, 14);
+		contentPane.add(lblError);
+		lblError.setVisible(false);
+	}
+	
+	/*-------------------------------------------------------FUNCIONALIDADES PARA VALIDAR Y CREAR----------------------------------------------------------------------
+	----------------------------------------------------------------------------------------------------------------------------------------------*/
+	
+	public void crear() {
+		String municipio=comboBoxMunicipio.getSelectedItem().toString();
+		String nombreCirc=textFieldNombre.getText().toString();
+		String codigoCirc=textFieldCodigo.getText().toString();
+		try {
+			circunscripcion_Services.insertCircunscripcion(codigoCirc, nombreCirc, municipio);
+		} catch (ClassNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+
+		
+	}
+	
+	public boolean existeCircunscripcion() {
+		boolean bandera=false;
+		int num=Integer.parseInt(textFieldCodigo.getText().toString());
+		try {
+			circunscripcion_DTO=circunscripcion_Services.findCir(num);
+		} catch (ClassNotFoundException | SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return bandera;
 	}
 }

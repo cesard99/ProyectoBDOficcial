@@ -115,14 +115,33 @@ public class Principal extends JFrame {
 		menuBar.add(BtnCreateElector);
 		
 		JButton btnCrearMunic = new JButton("Crear Municipio");
+		btnCrearMunic.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				CreateMunicipio ventanCreateMunicipio =new CreateMunicipio();
+				ventanCreateMunicipio.setVisible(true);
+			}
+		});
 		btnCrearMunic.setBackground(new Color(0, 128, 128));
 		menuBar.add(btnCrearMunic);
 		
 		JButton btnCrearCircrunscripcion = new JButton("Crear Circunpcion\r\n");
+		btnCrearCircrunscripcion.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				CreateCircunscripcion ventanaCircunscripcion=new CreateCircunscripcion();
+				ventanaCircunscripcion.setVisible(true);
+			}
+			
+		});
 		btnCrearCircrunscripcion.setBackground(new Color(0, 128, 128));
 		menuBar.add(btnCrearCircrunscripcion);
 		
 		JButton btnNewButton_4 = new JButton("Crear Colegio");
+		btnNewButton_4.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				CreateColegio ventanaColegio =new CreateColegio();
+				ventanaColegio.setVisible(true);
+			}
+		});
 		btnNewButton_4.setBackground(new Color(0, 128, 128));
 		menuBar.add(btnNewButton_4);
 		
@@ -264,7 +283,9 @@ public class Principal extends JFrame {
 
 	}
 	
-
+/*--------------------------------------------------------------------------------------------------------------------------------------------------------
+ --------------------------------------------------------------------Funciones para mostrar y controlar -------------------------------------------------- 
+ ---------------------------------------------------------------------------------------------------------------------------------------------------------*/
 		public void MostrarResumen() {
 			
 			String Resumen=comboBoxResumen.getSelectedItem().toString();

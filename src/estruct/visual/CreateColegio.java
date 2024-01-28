@@ -6,12 +6,23 @@ import java.awt.EventQueue;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
+
+import dto.Colegios_DTO;
+import estruct.services.Colegios_Services;
+import estruct.services.ServicesLocator;
+
 import java.awt.Color;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
+
 import java.awt.Font;
 import javax.swing.JComboBox;
 import javax.swing.JTextField;
 import javax.swing.JButton;
+import java.awt.event.ActionListener;
+import java.sql.SQLException;
+import java.text.StringCharacterIterator;
+import java.awt.event.ActionEvent;
 
 public class CreateColegio extends JFrame {
 
@@ -19,6 +30,9 @@ public class CreateColegio extends JFrame {
 	private JTextField textFieldCodigo;
 	private JTextField textFieldNombre;
 	private JTextField textFieldDireccion;
+	private Colegios_Services colegios_Services =ServicesLocator.getColegios_Services();
+	private Colegios_DTO colegios_DTO;
+	JComboBox comboBoxCircunscripcion = new JComboBox();
 
 	/**
 	 * Launch the application.
@@ -55,7 +69,7 @@ public class CreateColegio extends JFrame {
 		lblNewLabel.setBounds(188, 27, 181, 22);
 		contentPane.add(lblNewLabel);
 		
-		JComboBox comboBoxCircunscripcion = new JComboBox();
+		
 		comboBoxCircunscripcion.setBounds(188, 60, 169, 22);
 		contentPane.add(comboBoxCircunscripcion);
 		
@@ -93,14 +107,73 @@ public class CreateColegio extends JFrame {
 		contentPane.add(textFieldDireccion);
 		
 		JButton btnAceptar = new JButton("Aceptar");
+		btnAceptar.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				if(!comboBoxCircunscripcion.getSelectedItem().toString().isEmpty() && !textFieldCodigo.getText().toString().isEmpty() && 
+						!textFieldDireccion.getText().toString().isEmpty() && !textFieldNombre.getText().toString().isEmpty()) {
+					if(!existeColegio()) {
+						crear();
+					}else {
+						JOptionPane.showMessageDialog(null, "El Colegio ELectoral se encuentra en la Base de Datos", "Advertencia", JOptionPane.WARNING_MESSAGE);
+					}
+				}else {
+					JOptionPane.showMessageDialog(null, "Por favor, completa todos los campos correctamente.", "Advertencia", JOptionPane.WARNING_MESSAGE);
+				}
+				
+			}
+		});
 		btnAceptar.setBackground(new Color(0, 139, 139));
 		btnAceptar.setBounds(40, 296, 89, 23);
 		contentPane.add(btnAceptar);
 		
 		JButton btnCancelar = new JButton("Cancelar");
+		btnCancelar.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+			dispose();
+			}
+		});
 		btnCancelar.setBackground(new Color(0, 128, 128));
 		btnCancelar.setBounds(405, 296, 89, 23);
 		contentPane.add(btnCancelar);
 	}
+	
+	/*-------------------------------------------------------FUNCIONALIDADES PARA VALIDAR Y CREAR----------------------------------------------------------------------
+	----------------------------------------------------------------------------------------------------------------------------------------------*/
+	
+	public void crear() {
+		String Codigo=textFieldCodigo.getText().toString();
+		String nombre=textFieldNombre.getText().toString();
+		String Direcc=textFieldDireccion.getText().toString();
+		String circunsc=comboBoxCircunscripcion.getSelectedItem().toString();
+		try {
+			colegios_Services.insertColegioElectoral(Codigo, nombre, Direcc, circunsc);
+		} catch (ClassNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 
+	}
+
+	public boolean existeColegio() {
+		boolean bandera =false;
+		String CodigoCole=textFieldCodigo.getText().toString();
+		int num=Integer.parseInt(CodigoCole);
+		try {
+			colegios_DTO=colegios_Services.findCOL(num);
+		} catch (ClassNotFoundException | SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		if(colegios_DTO!=null) {
+			bandera=true;
+		}
+	    
+		
+		return bandera;
+	}
+	
 }
+
