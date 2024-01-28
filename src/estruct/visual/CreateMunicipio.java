@@ -110,6 +110,9 @@ public class CreateMunicipio extends JFrame {
 		contentPane.add(btnCancelar);
 	}
 	
+	/*-------------------------------------------------------FUNCIONALIDADES PARA VALIDAR Y CREAR----------------------------------------------------------------------
+	----------------------------------------------------------------------------------------------------------------------------------------------*/
+	
 	public void crear() {
 		String codigoString =textFieldCodigo.getText().toString();
 		String nombreString=textFieldNombre.getText().toString();

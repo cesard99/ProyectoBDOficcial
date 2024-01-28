@@ -7,6 +7,7 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
+import dto.Circunscripcion_DTO;
 import dto.Colegios_DTO;
 import estruct.services.Colegios_Services;
 import estruct.services.ServicesLocator;
@@ -22,6 +23,7 @@ import javax.swing.JButton;
 import java.awt.event.ActionListener;
 import java.sql.SQLException;
 import java.text.StringCharacterIterator;
+import java.util.ArrayList;
 import java.awt.event.ActionEvent;
 
 public class CreateColegio extends JFrame {
@@ -33,6 +35,7 @@ public class CreateColegio extends JFrame {
 	private Colegios_Services colegios_Services =ServicesLocator.getColegios_Services();
 	private Colegios_DTO colegios_DTO;
 	JComboBox comboBoxCircunscripcion = new JComboBox();
+	public ArrayList<Circunscripcion_DTO> listCircunscripcion;
 
 	/**
 	 * Launch the application.
@@ -137,6 +140,9 @@ public class CreateColegio extends JFrame {
 		btnCancelar.setBackground(new Color(0, 128, 128));
 		btnCancelar.setBounds(405, 296, 89, 23);
 		contentPane.add(btnCancelar);
+		
+		
+		llenarComboCirc();
 	}
 	
 	/*-------------------------------------------------------FUNCIONALIDADES PARA VALIDAR Y CREAR----------------------------------------------------------------------
@@ -175,6 +181,21 @@ public class CreateColegio extends JFrame {
 	    
 		
 		return bandera;
+	}
+	
+	public void llenarComboCirc(){
+		try {
+			listCircunscripcion=ServicesLocator.getCircunscripcion_Services().selectAllCIR();
+			for (int i = 0; i < listCircunscripcion.size(); i++) {
+				comboBoxCircunscripcion.addItem(listCircunscripcion.get(i).getNombre());
+			}
+		} catch (ClassNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 	
 }

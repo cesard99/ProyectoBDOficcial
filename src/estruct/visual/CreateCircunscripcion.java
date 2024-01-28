@@ -8,6 +8,7 @@ import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
 import dto.Circunscripcion_DTO;
+import dto.Municipio_DTO;
 import estruct.services.Circunscripcion_Services;
 import estruct.services.ServicesLocator;
 
@@ -21,6 +22,7 @@ import javax.swing.JTextField;
 import javax.swing.JButton;
 import java.awt.event.ActionListener;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.awt.event.ActionEvent;
 
 public class CreateCircunscripcion extends JFrame {
@@ -31,6 +33,7 @@ public class CreateCircunscripcion extends JFrame {
 	JComboBox comboBoxMunicipio = new JComboBox();
 	private Circunscripcion_Services circunscripcion_Services = ServicesLocator.getCircunscripcion_Services();
 	private Circunscripcion_DTO circunscripcion_DTO;
+	private ArrayList<Municipio_DTO>listMunicipio_DTO;
 	
 	/**
 	 * Launch the application.
@@ -129,6 +132,9 @@ public class CreateCircunscripcion extends JFrame {
 		lblError.setBounds(121, 206, 281, 14);
 		contentPane.add(lblError);
 		lblError.setVisible(false);
+		
+		llenarComboMunicipio();
+		
 	}
 	
 	/*-------------------------------------------------------FUNCIONALIDADES PARA VALIDAR Y CREAR----------------------------------------------------------------------
@@ -162,4 +168,28 @@ public class CreateCircunscripcion extends JFrame {
 		}
 		return bandera;
 	}
+	
+	
+	
+	public void llenarComboMunicipio(){
+		try {
+			listMunicipio_DTO = ServicesLocator.getMunicipio_Services().selectAllMun();
+			for (int i = 0; i < listMunicipio_DTO.size(); i++) {
+				comboBoxMunicipio.addItem(listMunicipio_DTO.get(i).getName());
+			}
+		} catch (ClassNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+	
+	
+	
+	
+	
+	
+	
 }
