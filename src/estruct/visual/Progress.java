@@ -18,7 +18,7 @@ import java.util.Locale;
 public class Progress extends JFrame {
 	JProgressBar progressBar;
 	private JPanel contentPane;
-
+	private JLabel lblCargandoSistema;
 	/**
 	 * Launch the application.
 	 */
@@ -42,7 +42,8 @@ public class Progress extends JFrame {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 750, 178);
 		contentPane = new JPanel();
-		contentPane.setBackground(Color.WHITE);
+		contentPane.setCursor(Cursor.getPredefinedCursor(Cursor.WAIT_CURSOR));
+		contentPane.setBackground(new Color(0, 128, 128));
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
 		
@@ -51,13 +52,13 @@ public class Progress extends JFrame {
 		progressBar.setCursor(Cursor.getPredefinedCursor(Cursor.WAIT_CURSOR));
 		progressBar.setStringPainted(true);
 		progressBar.setBackground(Color.WHITE);
-		progressBar.setForeground(new Color(50, 205, 50));
+		progressBar.setForeground(new Color(255, 215, 0));
 		progressBar.setBounds(0, 60, 750, 71);
 		contentPane.add(progressBar);
 		
-		JLabel lblCargandoSistema = new JLabel("Cargando Sistema...");
-		lblCargandoSistema.setFont(new Font("Tahoma", Font.BOLD | Font.ITALIC, 14));
-		lblCargandoSistema.setBounds(294, 21, 138, 17);
+		lblCargandoSistema = new JLabel("Cargando Sistema...");
+		lblCargandoSistema.setFont(new Font("Times New Roman", Font.BOLD | Font.ITALIC, 25));
+		lblCargandoSistema.setBounds(294, 11, 212, 30);
 		contentPane.add(lblCargandoSistema);
 		
 		this.setLocationRelativeTo(null);
@@ -67,12 +68,16 @@ public class Progress extends JFrame {
 	
 	public void arrancar() {
 		Thread hilo = new Thread(new Runnable() {
-			
+			String word = lblCargandoSistema.getText();
 			public void run() {
 				for (int i = 0; i <= 100; i++) {
 					try {
 						progressBar.setValue(i);
-						Thread.sleep(25);
+						String WORD = word.substring(0,i % word.length())+"";
+						lblCargandoSistema.setText(WORD);
+						
+						Thread.sleep(50);
+						
 						if (i==100) {
 							Principal p = new Principal();
 							p.setVisible(true);
