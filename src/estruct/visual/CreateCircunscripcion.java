@@ -147,7 +147,7 @@ public class CreateCircunscripcion extends JFrame {
 	----------------------------------------------------------------------------------------------------------------------------------------------*/
 	
 	public void crear() {
-		String municipio=comboBoxMunicipio.getSelectedItem().toString();
+		String municipio=listMunicipio_DTO.get(comboBoxMunicipio.getSelectedIndex()).getCodigo();
 		String nombreCirc=textFieldNombre.getText().toString();
 		String codigoCirc=textFieldCodigo.getText().toString();
 		try {
