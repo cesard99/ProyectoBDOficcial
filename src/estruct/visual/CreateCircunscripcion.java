@@ -103,7 +103,7 @@ public class CreateCircunscripcion extends JFrame {
 		JButton btnAceptar = new JButton("Aceptar");
 		btnAceptar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				if(!comboBoxMunicipio.getSelectedItem().toString().isEmpty() && !textFieldCodigo.getText().toString().isEmpty() && textFieldNombre.getText().toString().isEmpty()){
+				if(!comboBoxMunicipio.getSelectedItem().toString().isEmpty() && !textFieldCodigo.getText().toString().isEmpty() && !textFieldNombre.getText().toString().isEmpty()){
 					if(!existeCircunscripcion()) {
 						if(!circunscripcionNombre()) {
 						crear();
@@ -152,6 +152,7 @@ public class CreateCircunscripcion extends JFrame {
 		String codigoCirc=textFieldCodigo.getText().toString();
 		try {
 			circunscripcion_Services.insertCircunscripcion(codigoCirc, nombreCirc, municipio);
+			JOptionPane.showMessageDialog(null, "Circunscripcion insertado con exito", "Información", JOptionPane.INFORMATION_MESSAGE);
 		} catch (ClassNotFoundException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
