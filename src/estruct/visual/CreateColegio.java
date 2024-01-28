@@ -159,7 +159,7 @@ public class CreateColegio extends JFrame {
 		String Codigo=textFieldCodigo.getText().toString();
 		String nombre=textFieldNombre.getText().toString();
 		String Direcc=textFieldDireccion.getText().toString();
-		String circunsc=comboBoxCircunscripcion.getSelectedItem().toString();
+		String circunsc=listCircunscripcion.get(comboBoxCircunscripcion.getSelectedIndex()).getCodigo();;
 		try {
 			colegios_Services.insertColegioElectoral(Codigo, nombre, Direcc, circunsc);
 			JOptionPane.showMessageDialog(null, "Colegio insertado con exito", "Información", JOptionPane.INFORMATION_MESSAGE);
