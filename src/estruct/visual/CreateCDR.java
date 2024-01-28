@@ -11,21 +11,26 @@ import javax.swing.text.BadLocationException;
 import javax.swing.text.DocumentFilter;
 
 import dto.CDR_DTO;
+import dto.Colegios_DTO;
 import estruct.services.CDR_Services;
 import estruct.services.Registrer_Services;
 import estruct.services.ServicesLocator;
 
 import java.awt.Color;
+
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 
 import java.awt.Font;
 import java.sql.SQLException;
+import java.util.ArrayList;
+
 import dto.CDR_DTO;
 
 import javax.swing.JComboBox;
 import javax.swing.JTextField;
 import javax.swing.JButton;
+
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 
@@ -36,6 +41,7 @@ public class CreateCDR extends JFrame {
 	private JTextField textFieldNombre;
 	private JTextField textFieldNombrePresidente;
 	JComboBox comboBoxColegio = new JComboBox();
+	private ArrayList<Colegios_DTO>listColegios_DTOs;
 	private CDR_Services cdr_Services = ServicesLocator.getCDR_Services();
 	private CDR_DTO cdr_DTO;
 
@@ -60,6 +66,8 @@ public class CreateCDR extends JFrame {
 	 */
 	public CreateCDR() {
 		setTitle("Crear CDR");
+		setResizable(false);
+		this.setLocationRelativeTo(null);
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		setBounds(100, 100, 586, 411);
 		contentPane = new JPanel();
@@ -139,6 +147,9 @@ public class CreateCDR extends JFrame {
 		btnCancelar.setBackground(new Color(0, 128, 128));
 		btnCancelar.setBounds(440, 298, 89, 23);
 		contentPane.add(btnCancelar);
+		
+		
+		llenarComboCol();
 	}
 	
 	public void crear() {
@@ -177,7 +188,20 @@ public class CreateCDR extends JFrame {
 		
 	}
 	
-	
+	public void llenarComboCol(){
+		try {
+			listColegios_DTOs = ServicesLocator.getColegios_Services().selectAllCol();
+			for (int i = 0; i < listColegios_DTOs.size(); i++) {
+				comboBoxColegio.addItem(listColegios_DTOs.get(i).getName());
+			}
+		} catch (ClassNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
 	
 
 }

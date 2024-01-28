@@ -6,28 +6,21 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
-import java.util.Date;
 
-import dto.Elector_DTO;
-import dto.Nominado_DTO;
 import dto.Registrer_DTO;
+import dto.Votacion_DTO;
 
-public class Nominado_Services extends Elector_Services {
-	
-	
-	public void insertnominado(String codCDR, String numelect, String ocupa, String profe, int telef, String integRev, String bibliografia, String codCir) 
+public class Votacion_Services {
+	public void insertVoto(String id, String codCDR, String numElc, String voto, String causa) 
 			throws SQLException, ClassNotFoundException{
-		String query = "SELECT nominado_insert(?,?,?,?,?,?,?,?)";
+		String query = "SELECT users_insert(?,?,?,?,?)";
 		java.sql.Connection connection = ServicesLocator.getConnection();
 		PreparedStatement preparedStatement = connection.prepareStatement(query);
-		preparedStatement.setString(1, codCDR);
-		preparedStatement.setString(2, numelect);
-		preparedStatement.setString(3, ocupa);
-		preparedStatement.setString(4, profe);
-		preparedStatement.setInt(5, telef);
-		preparedStatement.setString(6, integRev);
-		preparedStatement.setString(7, bibliografia);
-		preparedStatement.setString(8, codCir);
+		preparedStatement.setString(1, id);
+		preparedStatement.setString(2, numElc);
+		preparedStatement.setString(3, codCDR);
+		preparedStatement.setString(4, voto);
+		preparedStatement.setString(5, causa);
 		preparedStatement.execute();
 		preparedStatement.close();
 		connection.close();
@@ -84,9 +77,9 @@ public class Nominado_Services extends Elector_Services {
 		return user;
 	}
 	
-	public ArrayList<Nominado_DTO> selectAllNom() throws SQLException, ClassNotFoundException{
-		ArrayList<Nominado_DTO> users = new ArrayList<Nominado_DTO>();
-		String function = "{?= call select_all_nominado()}";
+	public ArrayList<Votacion_DTO> selectAllVoto() throws SQLException, ClassNotFoundException{
+		ArrayList<Votacion_DTO> users = new ArrayList<Votacion_DTO>();
+		String function = "{?= call select_all_votacion()}";
 		java.sql.Connection connection = ServicesLocator.getConnection();
 		connection.setAutoCommit(false);
 		CallableStatement preparedFunction = connection.prepareCall(function);
@@ -94,7 +87,7 @@ public class Nominado_Services extends Elector_Services {
 		preparedFunction.execute();
 		ResultSet rs = (ResultSet) preparedFunction.getObject(1);
 		while (rs.next()){
-			users.add(new Nominado_DTO(rs.getString(2), rs.getString(1), rs.getString(3), rs.getString(4), rs.getInt(5), rs.getString(7), rs.getString(6),rs.getString(8)));
+			users.add(new Votacion_DTO(rs.getString(1), rs.getString(2), rs.getString(3),rs.getString(4),rs.getString(5) ));
 		}
 		rs.close();
 		preparedFunction.close();
@@ -102,5 +95,4 @@ public class Nominado_Services extends Elector_Services {
 		return users;
 	}
 }
-
 

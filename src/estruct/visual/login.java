@@ -40,6 +40,7 @@ public class login extends JFrame {
 	public login() {
 		setIconImage(Toolkit.getDefaultToolkit().getImage(login.class.getResource("/img/votacion.png")));
 		setTitle("Login");
+		this.setLocationRelativeTo(null);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 497, 412);
 		contentPane = new JPanel();

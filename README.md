@@ -27,3 +27,9 @@ problemática planteada, por ejemplo para los reportes o el tratamiento de excep
 NOTA: aclarar que desde la interfaz gráfica de usuario solamente se deben realizar las 
 llamadas de los métodos que están en los servicios, no se deben realizar consultas 
 desde estas.
+
+
+
+Municipio Mas Nominado
+Electores No Votaron
+Circunscripcion 2da Vuelta

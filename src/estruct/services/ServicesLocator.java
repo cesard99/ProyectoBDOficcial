@@ -19,11 +19,29 @@ public class ServicesLocator {
 	public static Parte_Services Parte_Services = null;
 	public static Registrer_Services registrer_Services = null;
 	public static ProcesoElectoral_services ProcesoElectoral_services = null;
+	public static Reportes_Services reportes_Services = null;
+	public static Votacion_Services votacion_Services = null;
+	public static Aux_services aux_services = null;
 	
 	public static CDR_Services getCDR_Services(){
 		if(CDR_Services == null)
 			CDR_Services = new CDR_Services();
 		return CDR_Services;
+	}
+	public static Aux_services getAux_services(){
+		if(aux_services == null)
+			aux_services = new Aux_services();
+		return aux_services;
+	}
+	public static Votacion_Services getvotVotacion_Services(){
+		if(votacion_Services == null)
+			votacion_Services = new Votacion_Services();
+		return votacion_Services;
+	}
+	public static Reportes_Services getReportes_Services(){
+		if(reportes_Services == null)
+			reportes_Services = new Reportes_Services();
+		return reportes_Services;
 	}
 	public static Circunscripcion_Services getCircunscripcion_Services(){
 		if(Circunscripcion_Services == null)
