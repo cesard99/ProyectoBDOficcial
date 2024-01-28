@@ -25,6 +25,8 @@ import dto.Reporte2;
 import dto.Reporte3;
 import dto.Reporte4;
 import dto.Reporte5;
+import dto.Reporte6;
+import dto.Reporte7;
 import dto.Votacion_DTO;
 import estruct.services.Municipio_Services;
 import estruct.services.Registrer_Services;
@@ -37,6 +39,8 @@ import estruct.util.CreateElectTablemodel;
 import estruct.util.CreateMunicipioTablemodel;
 import estruct.util.CreateNominadoTablemodel;
 import estruct.util.CreateReporteMunMNomTablemodel;
+import estruct.util.CreateReporteResuProcesoTablemodel;
+import estruct.util.CreateReporteResumenMunTablemodel;
 import estruct.util.CreateReportelistaNominaTablemodel;
 import estruct.util.CreateReportelistaParteTablemodel;
 import estruct.util.CreateUserTablemodel;
@@ -99,7 +103,7 @@ public class Principal extends JFrame {
 		setTitle("Principal");
 		setIconImage(Toolkit.getDefaultToolkit().getImage(Principal.class.getResource("/img/votacion.png")));
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-		setBounds(100, 100, 1069, 569);
+		setBounds(100, 100, 1300, 569);
 		contentPane = new JPanel();
 		contentPane.setBackground(new Color(0, 128, 128));
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
@@ -108,7 +112,7 @@ public class Principal extends JFrame {
 		contentPane.setLayout(null);
 		
 		JMenuBar menuBar = new JMenuBar();
-		menuBar.setBounds(0, 0, 1043, 22);
+		menuBar.setBounds(0, 0, 1274, 22);
 		contentPane.add(menuBar);
 		
 		JButton btnNewButton = new JButton("Parte");
@@ -217,7 +221,7 @@ public class Principal extends JFrame {
 		
 		JLabel lblNewLabelTitulo = new JLabel("Reportes");
 		lblNewLabelTitulo.setFont(new Font("Tahoma", Font.BOLD | Font.ITALIC, 14));
-		lblNewLabelTitulo.setBounds(102, 14, 63, 17);
+		lblNewLabelTitulo.setBounds(102, 14, 75, 17);
 		panel.add(lblNewLabelTitulo);
 		
 		JButton BtnListado = new JButton("Generar");
@@ -343,7 +347,7 @@ public class Principal extends JFrame {
 				}else if(r.equalsIgnoreCase("Listado Parte")){
 					crearreporte5();//ok
 				}else if(r.equalsIgnoreCase("Resumen Municipio")){
-					crearreporte6();
+					crearreporte6();//ok
 					
 				}else if(r.equalsIgnoreCase("Resumen Proceso")){
 					crearreporte7();
@@ -358,7 +362,8 @@ public class Principal extends JFrame {
 		
 		
 		JScrollPane scrollPane = new JScrollPane();
-		scrollPane.setBounds(289, 21, 754, 508);
+		scrollPane.setBackground(new Color(255, 255, 255));;
+		scrollPane.setBounds(289, 21, 985, 508);
 		contentPane.add(scrollPane);
 		
 		table = new JTable();
@@ -600,7 +605,10 @@ public class Principal extends JFrame {
 			
 		}
 		
-/////////////////////////////////////////////////////////////////////////////////////////
+/////////////////////////////////////////////////////////////////////////////////////////Reportes//////////////////////////////////////////////////////////////////////////////////////////
+		
+		
+		
 		public void crearreporte1(String cir, String cdr){
 			String repo=comboBoxAgre.getSelectedItem().toString();
 			createReporte1Tablemodel model = new createReporte1Tablemodel(){
@@ -831,7 +839,7 @@ public void crearreporte5(){
 	}
 public void crearreporte6(){
 	
-	CreateReporteMunMNomTablemodel modelo = new CreateReporteMunMNomTablemodel(){
+	CreateReporteResumenMunTablemodel modelo = new CreateReporteResumenMunTablemodel(){
 		private static final long serialVersionUID = 1L;
 		@Override
 		public boolean isCellEditable(int row, int column) {
@@ -841,11 +849,11 @@ public void crearreporte6(){
 	table.setModel(modelo);
 	
 		try{
-			ArrayList<Reporte3> lis= ServicesLocator.getReportes_Services().selectreporte3MunCantNom();
-			for(Reporte3 m  :lis){
+			ArrayList<Reporte6> lis= ServicesLocator.getReportes_Services().selectreporte6ResumeMun();
+			for(Reporte6 m  :lis){
 				
 				
-				String[] datos = {m.getNomMun(),Integer.toString(m.getCantNOM())};
+				String[] datos = {m.getNomMun(),m.getCantCir(),m.getCantCol(),m.getCantCDR(),m.getCantElect()};
 				modelo.addRow(datos);
 			}
 		} catch (ClassNotFoundException | SQLException e) {
@@ -857,7 +865,7 @@ public void crearreporte6(){
 
 public void crearreporte7(){
 	
-	CreateReporteMunMNomTablemodel modelo = new CreateReporteMunMNomTablemodel(){
+	CreateReporteResuProcesoTablemodel modelo = new CreateReporteResuProcesoTablemodel(){
 		private static final long serialVersionUID = 1L;
 		@Override
 		public boolean isCellEditable(int row, int column) {
@@ -867,11 +875,11 @@ public void crearreporte7(){
 	table.setModel(modelo);
 	
 		try{
-			ArrayList<Reporte3> lis= ServicesLocator.getReportes_Services().selectreporte3MunCantNom();
-			for(Reporte3 m  :lis){
+			ArrayList<Reporte7> lis= ServicesLocator.getReportes_Services().selectreporte7ResumemProceso();
+			for(Reporte7 m  :lis){
 				
 				
-				String[] datos = {m.getNomMun(),Integer.toString(m.getCantNOM())};
+				String[] datos = {m.getNomMun(),m.getNomCir(),m.getNomCol(),m.getNomCDR(),m.getNumVuelta(),m.getFecha_hora(),m.getTotalListadoElectores(),m.getCantElectQVotan(),m.getCantidadElectTotal(),m.getPorciento_Votado(),m.getCant_no_votan(),m.getCantElectEliminados(),m.getCantidad_no_votaron_extranjero(),m.getCantidad_no_votaron_fuera_provincia(),m.getCantidad_no_votaron_hospitalizados(),m.getCantidad_no_votaron_trabajando(),m.getCantidad_no_votaron_otras_causas(),m.getCantidad_no_votaron_desconocidas()};
 				modelo.addRow(datos);
 			}
 		} catch (ClassNotFoundException | SQLException e) {
