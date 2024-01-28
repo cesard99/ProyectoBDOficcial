@@ -73,6 +73,8 @@ import java.util.Locale;
 import javax.swing.ListSelectionModel;
 import javax.swing.JMenuItem;
 import javax.swing.ImageIcon;
+import java.awt.Component;
+import javax.swing.Box;
 
 @SuppressWarnings("serial")
 public class Principal extends JFrame {
@@ -115,16 +117,6 @@ public class Principal extends JFrame {
 		menuBar.setBounds(0, 0, 1274, 22);
 		contentPane.add(menuBar);
 		
-		JButton btnNewButton = new JButton("Parte");
-		btnNewButton.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				Parte ventanaParte = new Parte();
-				ventanaParte.setVisible(true);
-			}
-		});
-		btnNewButton.setBackground(new Color(0, 128, 128));
-		menuBar.add(btnNewButton);
-		
 		final JButton btnNewButton_1 = new JButton("Remover ");
 		btnNewButton_1.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -140,6 +132,16 @@ public class Principal extends JFrame {
 				};
 			}
 		});
+		
+		JButton btnCrearUsuario = new JButton("Crear Usuario");
+		btnCrearUsuario.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				CreateUser ventanaCreateUser = new CreateUser();
+				ventanaCreateUser.setVisible(true);
+			}
+		});
+		btnCrearUsuario.setBackground(new Color(0, 128, 128));
+		menuBar.add(btnCrearUsuario);
 		btnNewButton_1.setBackground(new Color(0, 128, 128));
 		menuBar.add(btnNewButton_1);
 		btnNewButton_1.setEnabled(false);
@@ -157,16 +159,6 @@ public class Principal extends JFrame {
 			
 			}
 		});
-		
-		JButton btnCrearUsuario = new JButton("Crear Usuario");
-		btnCrearUsuario.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				CreateUser ventanaCreateUser = new CreateUser();
-				ventanaCreateUser.setVisible(true);
-			}
-		});
-		btnCrearUsuario.setBackground(new Color(0, 128, 128));
-		menuBar.add(btnCrearUsuario);
 		BtnCreateElector.setBackground(new Color(0, 128, 128));
 		menuBar.add(BtnCreateElector);
 		
@@ -210,6 +202,19 @@ public class Principal extends JFrame {
 		});
 		btnCrearCDR.setBackground(new Color(0, 128, 128));
 		menuBar.add(btnCrearCDR);
+		
+		JButton btnNewButton = new JButton("Parte");
+		btnNewButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				Parte ventanaParte = new Parte();
+				ventanaParte.setVisible(true);
+			}
+		});
+		btnNewButton.setBackground(new Color(0, 128, 128));
+		menuBar.add(btnNewButton);
+		
+		Component horizontalStrut = Box.createHorizontalStrut(315);
+		menuBar.add(horizontalStrut);
 		
 		JButton BtnCerrarSeccion = new JButton("Cerrar Seccion ");
 		menuBar.add(BtnCerrarSeccion);
