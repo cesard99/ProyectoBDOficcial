@@ -64,11 +64,13 @@ public class Parte extends JFrame {
 	 * Create the frame.
 	 */
 	public Parte() {
+		setResizable(false);
 		setTitle("Parte");
-		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 649, 529);
+		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+		setBounds(100, 100, 522, 529);
+		this.setLocationRelativeTo(null);
 		contentPane = new JPanel();
-		contentPane.setBackground(new Color(60, 179, 113));
+		contentPane.setBackground(new Color(0, 128, 128));
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
@@ -138,56 +140,56 @@ public class Parte extends JFrame {
 		JLabel lblCantidadElectoresInicio = new JLabel("Cantidad Electores Inicio:");
 		lblCantidadElectoresInicio.setForeground(Color.WHITE);
 		lblCantidadElectoresInicio.setFont(new Font("Tahoma", Font.PLAIN, 15));
-		lblCantidadElectoresInicio.setBounds(353, 79, 166, 14);
+		lblCantidadElectoresInicio.setBounds(276, 46, 166, 14);
 		contentPane.add(lblCantidadElectoresInicio);
 		
 		JSpinner spinnerElectoresInicio = new JSpinner();
 		spinnerElectoresInicio.setModel(new SpinnerNumberModel(new Integer(0), new Integer(0), null, new Integer(1)));
-		spinnerElectoresInicio.setBounds(529, 78, 42, 20);
+		spinnerElectoresInicio.setBounds(452, 46, 42, 20);
 		contentPane.add(spinnerElectoresInicio);
 		
 		JLabel lblCantidadElectoresAgregados = new JLabel("Cantidad Electores Agregados:");
 		lblCantidadElectoresAgregados.setForeground(Color.WHITE);
 		lblCantidadElectoresAgregados.setFont(new Font("Tahoma", Font.PLAIN, 15));
-		lblCantidadElectoresAgregados.setBounds(348, 122, 207, 14);
+		lblCantidadElectoresAgregados.setBounds(235, 89, 207, 14);
 		contentPane.add(lblCantidadElectoresAgregados);
 		
 		JSpinner spinnerElectoresAdd = new JSpinner();
 		spinnerElectoresAdd.setModel(new SpinnerNumberModel(new Integer(0), new Integer(0), null, new Integer(1)));
-		spinnerElectoresAdd.setBounds(554, 121, 42, 20);
+		spinnerElectoresAdd.setBounds(452, 89, 42, 20);
 		contentPane.add(spinnerElectoresAdd);
 		
 		JLabel lblCantidadElectoresEliminados = new JLabel("Cantidad Electores Eliminados:");
 		lblCantidadElectoresEliminados.setForeground(Color.WHITE);
 		lblCantidadElectoresEliminados.setFont(new Font("Tahoma", Font.PLAIN, 15));
-		lblCantidadElectoresEliminados.setBounds(353, 162, 207, 14);
+		lblCantidadElectoresEliminados.setBounds(235, 129, 207, 14);
 		contentPane.add(lblCantidadElectoresEliminados);
 		
 		JSpinner spinnerElectoresDeleted = new JSpinner();
 		spinnerElectoresDeleted.setModel(new SpinnerNumberModel(new Integer(0), new Integer(0), null, new Integer(1)));
-		spinnerElectoresDeleted.setBounds(570, 161, 42, 20);
+		spinnerElectoresDeleted.setBounds(452, 129, 42, 20);
 		contentPane.add(spinnerElectoresDeleted);
 		
 		JLabel lblCantidadElectoresParte = new JLabel("Cantidad Electores Parte Anterior:");
 		lblCantidadElectoresParte.setForeground(Color.WHITE);
 		lblCantidadElectoresParte.setFont(new Font("Tahoma", Font.PLAIN, 15));
-		lblCantidadElectoresParte.setBounds(337, 216, 226, 14);
+		lblCantidadElectoresParte.setBounds(216, 183, 226, 14);
 		contentPane.add(lblCantidadElectoresParte);
 		
 		JSpinner spinnerElectoresParteAnt = new JSpinner();
 		spinnerElectoresParteAnt.setModel(new SpinnerNumberModel(new Integer(0), new Integer(0), null, new Integer(1)));
-		spinnerElectoresParteAnt.setBounds(570, 215, 42, 20);
+		spinnerElectoresParteAnt.setBounds(452, 183, 42, 20);
 		contentPane.add(spinnerElectoresParteAnt);
 		
 		JLabel lblElectoresQueVotaron = new JLabel("Electores que Votaron por el dia:");
 		lblElectoresQueVotaron.setForeground(Color.WHITE);
 		lblElectoresQueVotaron.setFont(new Font("Tahoma", Font.PLAIN, 15));
-		lblElectoresQueVotaron.setBounds(329, 259, 226, 14);
+		lblElectoresQueVotaron.setBounds(216, 226, 226, 14);
 		contentPane.add(lblElectoresQueVotaron);
 		
 		JSpinner spinnerElectoresVotacionDeDia = new JSpinner();
 		spinnerElectoresVotacionDeDia.setModel(new SpinnerNumberModel(new Integer(0), new Integer(0), null, new Integer(1)));
-		spinnerElectoresVotacionDeDia.setBounds(554, 258, 42, 20);
+		spinnerElectoresVotacionDeDia.setBounds(452, 226, 42, 20);
 		contentPane.add(spinnerElectoresVotacionDeDia);
 		
 		JButton btnNewButton = new JButton("Crear");
@@ -196,7 +198,7 @@ public class Parte extends JFrame {
 			crear();
 			}
 		});
-		btnNewButton.setBounds(108, 391, 89, 23);
+		btnNewButton.setBounds(10, 456, 89, 23);
 		contentPane.add(btnNewButton);
 		
 		JButton btnCancelar = new JButton("Cancelar");
@@ -205,7 +207,7 @@ public class Parte extends JFrame {
 				dispose();
 			}
 		});
-		btnCancelar.setBounds(405, 391, 89, 23);
+		btnCancelar.setBounds(407, 456, 89, 23);
 		contentPane.add(btnCancelar);
 		
 		llenarComboMun();

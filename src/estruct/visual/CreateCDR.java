@@ -60,6 +60,8 @@ public class CreateCDR extends JFrame {
 	 */
 	public CreateCDR() {
 		setTitle("Crear CDR");
+		setResizable(false);
+		this.setLocationRelativeTo(null);
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		setBounds(100, 100, 586, 411);
 		contentPane = new JPanel();

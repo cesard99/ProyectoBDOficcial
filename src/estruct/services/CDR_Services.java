@@ -57,7 +57,7 @@ public class CDR_Services {
 		String query = "SELECT * FROM user_ WHERE user_.user_code = '"+cdrCode+"'"; 
 		ResultSet rs = statement.executeQuery(query);
 		rs.first();
-		CDR_DTO cdr = new CDR_DTO(rs.getString(1),rs.getString(2),rs.getString(3));
+		CDR_DTO cdr = new CDR_DTO(rs.getString(1),rs.getString(2),rs.getString(3),rs.getString(4));
 		rs.close();
 		statement.close();
 		connection.close();
@@ -74,7 +74,7 @@ public class CDR_Services {
 		preparedFunction.execute();
 		ResultSet rs = (ResultSet) preparedFunction.getObject(1);
 		while (rs.next()){
-			cdr.add(new CDR_DTO(rs.getString(1), rs.getString(2),rs.getString(3)));  
+			cdr.add(new CDR_DTO(rs.getString(1), rs.getString(2),rs.getString(3),rs.getString(4)));  
 		}
 		rs.close();
 		preparedFunction.close();

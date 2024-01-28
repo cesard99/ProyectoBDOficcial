@@ -40,6 +40,8 @@ public class CreateCircunscripcion extends JFrame {
 	 */
 	public CreateCircunscripcion() {
 		setTitle("Crear Circunscripcion");
+		setResizable(false);
+		this.setLocationRelativeTo(null);
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		setBounds(100, 100, 567, 378);
 		contentPane = new JPanel();

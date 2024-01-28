@@ -9,11 +9,12 @@ public class CDR_DTO  {
     private String codigoCole;
     private String name;
     
-    public CDR_DTO(String codigo, String name, String nombPresidente) {
+    public CDR_DTO(String codigo, String name, String nombPresidente, String codigoCole) {
         setPresidentName(nombPresidente);
         setElect(Elect);
         setCodigo(codigo);
         setName(name);
+        setCodigoCole(codigoCole);
 
     }
 

@@ -8,6 +8,7 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.Date;
 
+import dto.Elector_DTO;
 import dto.Registrer_DTO;
 
 public class Elector_Services {
@@ -77,9 +78,9 @@ public class Elector_Services {
 		return user;
 	}
 	
-	public ArrayList<Registrer_DTO> selectAllUsers() throws SQLException, ClassNotFoundException{
-		ArrayList<Registrer_DTO> users = new ArrayList<Registrer_DTO>();
-		String function = "{?= call select_all_users()}";
+	public ArrayList<Elector_DTO> selectAllElect() throws SQLException, ClassNotFoundException{
+		ArrayList<Elector_DTO> users = new ArrayList<Elector_DTO>();
+		String function = "{?= call select_all_elector()}";
 		java.sql.Connection connection = ServicesLocator.getConnection();
 		connection.setAutoCommit(false);
 		CallableStatement preparedFunction = connection.prepareCall(function);
@@ -87,7 +88,7 @@ public class Elector_Services {
 		preparedFunction.execute();
 		ResultSet rs = (ResultSet) preparedFunction.getObject(1);
 		while (rs.next()){
-			users.add(new Registrer_DTO(rs.getString(1), rs.getString(2), rs.getString(3), rs.getInt(4)));
+			users.add(new Elector_DTO(rs.getString(3), rs.getString(5).toString(), rs.getString(4), rs.getString(1), rs.getString(2)));
 		}
 		rs.close();
 		preparedFunction.close();

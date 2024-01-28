@@ -1,12 +1,14 @@
 package dto;
 
 public class Elector_DTO {
-    private String nombreApellido;
+	private String CodCDR;
+	private String nombreApellido;
     private String fechaNacimiento;
     private String Direccion;
-    private int NumConsc;
+    private String NumConsc;
     private String voto;
-
+    private String causa;
+    
     public String getVoto() {
         return voto;
     }
@@ -15,13 +17,12 @@ public class Elector_DTO {
         this.voto = voto;
     }
 
-    public Elector_DTO(String nombreApell, String fechaNacimiento, String Direccion, int NumConsc,String voto) {
+    public Elector_DTO(String nombreApell, String fechaNacimiento, String Direccion,String CodCDR, String NumConsc) {
         setNombreApellido(nombreApell);
         setFechaNacimiento(fechaNacimiento);
         setDireccion(Direccion);
-        setNumConsc(NumConsc);
-        setVoto(voto);
-        
+        setNumConsc(NumConsc); 
+        setCodCDR(CodCDR);
 
     }
 
@@ -49,12 +50,28 @@ public class Elector_DTO {
         Direccion = direccion;
     }
 
-    public int getNumConsc() {
+    public String getNumConsc() {
         return NumConsc;
     }
 
-    public void setNumConsc(int numConsc) {
+    public void setNumConsc(String numConsc) {
         NumConsc = numConsc;
     }
+
+	public String getCausa() {
+		return causa;
+	}
+
+	public void setCausa(String causa) {
+		this.causa = causa;
+	}
+
+	public String getCodCDR() {
+		return CodCDR;
+	}
+
+	public void setCodCDR(String codCDR) {
+		CodCDR = codCDR;
+	}
 
 }

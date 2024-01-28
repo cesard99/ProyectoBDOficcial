@@ -87,6 +87,8 @@ public class CreateElector extends JFrame {
 	 * Create the frame.
 	 */
 	public CreateElector() {
+		setResizable(false);
+		this.setLocationRelativeTo(null);
 		setTitle("CreateUser");
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		setBounds(100, 100, 640, 525);
