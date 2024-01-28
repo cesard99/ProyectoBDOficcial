@@ -27,7 +27,7 @@ import java.awt.Window.Type;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
-public class FframeC extends JFrame {
+public class FframeC2 extends JFrame {
 
 	private JPanel contentPane;
 	private ArrayList<Circunscripcion_DTO>listCircunscripcion_DTOs;
@@ -40,7 +40,7 @@ public class FframeC extends JFrame {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					FframeC frame = new FframeC();
+					FframeC2 frame = new FframeC2();
 					frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -52,7 +52,7 @@ public class FframeC extends JFrame {
 	/**
 	 * Create the frame.
 	 */
-	public FframeC() {
+	public FframeC2() {
 		setResizable(false);
 		setBackground(new Color(255, 255, 255));
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
@@ -72,7 +72,7 @@ public class FframeC extends JFrame {
 				//ServicesLocator.getAux_services().insertAux(nomCir);
 				Principal p = new Principal();
 				p.setVisible(true);
-				p.crearreporte1l(nomCir, null);
+				p.crearreporte12(nomCir, null,null);
 				dispose();
 			} catch (Exception e) {
 				// TODO Auto-generated catch block

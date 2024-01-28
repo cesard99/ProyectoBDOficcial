@@ -17,6 +17,7 @@ import java.awt.Font;
 
 import javax.swing.JComboBox;
 
+import dto.CDR_DTO;
 import dto.Circunscripcion_DTO;
 import estruct.services.ServicesLocator;
 import estruct.visual.Principal;
@@ -27,10 +28,10 @@ import java.awt.Window.Type;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
-public class FframeC extends JFrame {
+public class FframeCDR2 extends JFrame {
 
 	private JPanel contentPane;
-	private ArrayList<Circunscripcion_DTO>listCircunscripcion_DTOs;
+	private ArrayList<CDR_DTO>listCdr_DTOs;
 	private JComboBox comboBox;
 	private String nomCir;
 	/**
@@ -40,7 +41,7 @@ public class FframeC extends JFrame {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					FframeC frame = new FframeC();
+					FframeCDR2 frame = new FframeCDR2();
 					frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -52,7 +53,7 @@ public class FframeC extends JFrame {
 	/**
 	 * Create the frame.
 	 */
-	public FframeC() {
+	public FframeCDR2() {
 		setResizable(false);
 		setBackground(new Color(255, 255, 255));
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
@@ -72,7 +73,7 @@ public class FframeC extends JFrame {
 				//ServicesLocator.getAux_services().insertAux(nomCir);
 				Principal p = new Principal();
 				p.setVisible(true);
-				p.crearreporte1l(nomCir, null);
+				p.crearreporte12(null, nomCir,null);
 				dispose();
 			} catch (Exception e) {
 				// TODO Auto-generated catch block
@@ -97,7 +98,7 @@ public class FframeC extends JFrame {
 		button_1.setBounds(179, 95, 89, 23);
 		contentPane.add(button_1);
 		
-		JLabel lblCircunscripcion = new JLabel("Seleciona una Circunscripci\u00F3n");
+		JLabel lblCircunscripcion = new JLabel("Seleciona un CDR");
 		lblCircunscripcion.setForeground(Color.WHITE);
 		lblCircunscripcion.setFont(new Font("Tahoma", Font.PLAIN, 15));
 		lblCircunscripcion.setBounds(10, 11, 186, 19);
@@ -108,14 +109,14 @@ public class FframeC extends JFrame {
 		comboBox.setBounds(10, 36, 165, 20);
 		contentPane.add(comboBox);
 		
-		llenarComboCir();
+		llenarComboCdr();
 		
 	}
 	public void llenarComboCir(){
 		try {
-			listCircunscripcion_DTOs = ServicesLocator.getCircunscripcion_Services().selectAllCIR();
-			for (int i = 0; i < listCircunscripcion_DTOs.size(); i++) {
-				comboBox.addItem(listCircunscripcion_DTOs.get(i).getNombre());
+			listCdr_DTOs = ServicesLocator.getCDR_Services().selectAllCDr();
+			for (int i = 0; i < listCdr_DTOs.size(); i++) {
+				comboBox.addItem(listCdr_DTOs.get(i).getName());
 			}
 		} catch (ClassNotFoundException e) {
 			// TODO Auto-generated catch block
@@ -132,6 +133,20 @@ public class FframeC extends JFrame {
 
 	public void setNomCir(String nomCir) {
 		this.nomCir = nomCir;
+	}
+	public void llenarComboCdr(){
+		try {
+			listCdr_DTOs = ServicesLocator.getCDR_Services().selectAllCDr();
+			for (int i = 0; i < listCdr_DTOs.size(); i++) {
+				comboBox.addItem(listCdr_DTOs.get(i).getName());
+			}
+		} catch (ClassNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 
 }

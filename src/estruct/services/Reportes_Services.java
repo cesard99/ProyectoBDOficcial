@@ -8,25 +8,11 @@ import java.util.ArrayList;
 import dto.Municipio_DTO;
 import dto.Registrer_DTO;
 import dto.Reporte1;
+import dto.Reporte2;
+import dto.Reporte3;
 
 public class Reportes_Services {
-	/*public ArrayList<Reporte1> selectreporte1() throws SQLException, ClassNotFoundException{
-		ArrayList<Reporte1> users = new ArrayList<Reporte1>();
-		String function = "{?, = call obtenerlistadoporcircunscripciondada()}";
-		java.sql.Connection connection = ServicesLocator.getConnection();
-		connection.setAutoCommit(false);
-		CallableStatement preparedFunction = connection.prepareCall(function);
-		preparedFunction.registerOutParameter(1, java.sql.Types.OTHER);
-		preparedFunction.execute();
-		ResultSet rs = (ResultSet) preparedFunction.getObject(1);
-		while (rs.next()){
-			users.add(new Reporte1(rs.getString(1), rs.getString(2), rs.getString(3),rs.getString(4),rs.getString(5),rs.getString(6),rs.getString(7)));
-		}
-		rs.close();
-		preparedFunction.close();
-		connection.close();
-		return users;
-	}*/
+	
 	public ArrayList<Reporte1> selectreporte1AllCir() throws SQLException, ClassNotFoundException{
 		ArrayList<Reporte1> users = new ArrayList<Reporte1>();
 		String function = "{?= call obtenerlistadoporcircunscripcionall()}";
@@ -79,6 +65,95 @@ public class Reportes_Services {
 	    preparedFunction.close();
 	    connection.close();
 	    return users;
+	}
+	
+	public ArrayList<Reporte2> selectreporte2AllElectNoVoto() throws SQLException, ClassNotFoundException{
+		ArrayList<Reporte2> users = new ArrayList<Reporte2>();
+		String function = "{?= call listadoelectnovotaron()}";
+		java.sql.Connection connection = ServicesLocator.getConnection();
+		connection.setAutoCommit(false);
+		CallableStatement preparedFunction = connection.prepareCall(function);
+		preparedFunction.registerOutParameter(1, java.sql.Types.OTHER);
+		preparedFunction.execute();
+		ResultSet rs = (ResultSet) preparedFunction.getObject(1);
+		while (rs.next()){
+			users.add(new Reporte2(rs.getString(1), rs.getString(2), rs.getString(3),rs.getString(4),rs.getString(5),rs.getString(6),rs.getString(7), rs.getString(8)));
+		}
+		rs.close();
+		preparedFunction.close();
+		connection.close();
+		return users;
+	}
+	public ArrayList<Reporte2> selectreporte2AllElectNoVotoCir(String nom) throws SQLException, ClassNotFoundException {//OK al palo
+	    ArrayList<Reporte2> users = new ArrayList<Reporte2>();
+	    String function = "{?= call listadoelectnovotaroncircunsdada(?)}";
+	    java.sql.Connection connection = ServicesLocator.getConnection();
+	    connection.setAutoCommit(false);
+	    CallableStatement preparedFunction = connection.prepareCall(function);
+	    preparedFunction.setString(2, nom); // Pasar el parámetro al procedimiento almacenado
+	    preparedFunction.registerOutParameter(1, java.sql.Types.OTHER);
+	    preparedFunction.execute();
+	    ResultSet rs = (ResultSet) preparedFunction.getObject(1);
+	    while (rs.next()) {
+	        users.add(new Reporte2(rs.getString(1), rs.getString(2), rs.getString(3), rs.getString(4), rs.getString(5), rs.getString(6), rs.getString(7), rs.getString(8)));
+	    }
+	    rs.close();
+	    preparedFunction.close();
+	    connection.close();
+	    return users;
+	}
+	public ArrayList<Reporte2> selectreporte2AllElectNoVotoMun(String nom) throws SQLException, ClassNotFoundException {//OK al palo
+	    ArrayList<Reporte2> users = new ArrayList<Reporte2>();
+	    String function = "{?= call listadoelectnovotaronmundada(?)}";
+	    java.sql.Connection connection = ServicesLocator.getConnection();
+	    connection.setAutoCommit(false);
+	    CallableStatement preparedFunction = connection.prepareCall(function);
+	    preparedFunction.setString(2, nom); // Pasar el parámetro al procedimiento almacenado
+	    preparedFunction.registerOutParameter(1, java.sql.Types.OTHER);
+	    preparedFunction.execute();
+	    ResultSet rs = (ResultSet) preparedFunction.getObject(1);
+	    while (rs.next()) {
+	        users.add(new Reporte2(rs.getString(1), rs.getString(2), rs.getString(3), rs.getString(4), rs.getString(5), rs.getString(6), rs.getString(7), rs.getString(8)));
+	    }
+	    rs.close();
+	    preparedFunction.close();
+	    connection.close();
+	    return users;
+	}
+	public ArrayList<Reporte2> selectreporte2AllElectNoVotoCDR(String nom) throws SQLException, ClassNotFoundException {//OK al palo
+	    ArrayList<Reporte2> users = new ArrayList<Reporte2>();
+	    String function = "{?= call listadoelectnovotaroncdrdada(?)}";
+	    java.sql.Connection connection = ServicesLocator.getConnection();
+	    connection.setAutoCommit(false);
+	    CallableStatement preparedFunction = connection.prepareCall(function);
+	    preparedFunction.setString(2, nom); // Pasar el parámetro al procedimiento almacenado
+	    preparedFunction.registerOutParameter(1, java.sql.Types.OTHER);
+	    preparedFunction.execute();
+	    ResultSet rs = (ResultSet) preparedFunction.getObject(1);
+	    while (rs.next()) {
+	        users.add(new Reporte2(rs.getString(1), rs.getString(2), rs.getString(3), rs.getString(4), rs.getString(5), rs.getString(6), rs.getString(7), rs.getString(8)));
+	    }
+	    rs.close();
+	    preparedFunction.close();
+	    connection.close();
+	    return users;
+	}
+	public ArrayList<Reporte3> selectreporte3MunCantNom() throws SQLException, ClassNotFoundException{
+		ArrayList<Reporte3> users = new ArrayList<Reporte3>();
+		String function = "{?= call listadomunicipiomasnominado()}";
+		java.sql.Connection connection = ServicesLocator.getConnection();
+		connection.setAutoCommit(false);
+		CallableStatement preparedFunction = connection.prepareCall(function);
+		preparedFunction.registerOutParameter(1, java.sql.Types.OTHER);
+		preparedFunction.execute();
+		ResultSet rs = (ResultSet) preparedFunction.getObject(1);
+		while (rs.next()){
+			users.add(new Reporte3(rs.getString(1), rs.getInt(2)));
+		}
+		rs.close();
+		preparedFunction.close();
+		connection.close();
+		return users;
 	}
 	
 	}

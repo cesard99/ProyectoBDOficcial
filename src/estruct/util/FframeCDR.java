@@ -89,7 +89,9 @@ public class FframeCDR extends JFrame {
 		JButton button_1 = new JButton("Cancelar");
 		button_1.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-			dispose();
+				Principal p = new Principal();
+				p.setVisible(true);
+				dispose();
 			}
 		});
 		button_1.setBackground(new Color(0, 128, 128));

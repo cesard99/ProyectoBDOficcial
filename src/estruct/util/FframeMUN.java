@@ -17,7 +17,9 @@ import java.awt.Font;
 
 import javax.swing.JComboBox;
 
+import dto.CDR_DTO;
 import dto.Circunscripcion_DTO;
+import dto.Municipio_DTO;
 import estruct.services.ServicesLocator;
 import estruct.visual.Principal;
 
@@ -27,10 +29,10 @@ import java.awt.Window.Type;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
-public class FframeC extends JFrame {
+public class FframeMUN extends JFrame {
 
 	private JPanel contentPane;
-	private ArrayList<Circunscripcion_DTO>listCircunscripcion_DTOs;
+	private ArrayList<Municipio_DTO>listMunicipio_DTOs;
 	private JComboBox comboBox;
 	private String nomCir;
 	/**
@@ -40,7 +42,7 @@ public class FframeC extends JFrame {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					FframeC frame = new FframeC();
+					FframeMUN frame = new FframeMUN();
 					frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -52,10 +54,10 @@ public class FframeC extends JFrame {
 	/**
 	 * Create the frame.
 	 */
-	public FframeC() {
+	public FframeMUN() {
 		setResizable(false);
-		setBackground(new Color(255, 255, 255));
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+		setBackground(new Color(255, 255, 255));
 		setBounds(100, 100, 284, 162);
 		this.setLocationRelativeTo(null);
 		contentPane = new JPanel();
@@ -72,7 +74,7 @@ public class FframeC extends JFrame {
 				//ServicesLocator.getAux_services().insertAux(nomCir);
 				Principal p = new Principal();
 				p.setVisible(true);
-				p.crearreporte1l(nomCir, null);
+				p.crearreporte12(null, null, nomCir);
 				dispose();
 			} catch (Exception e) {
 				// TODO Auto-generated catch block
@@ -97,7 +99,7 @@ public class FframeC extends JFrame {
 		button_1.setBounds(179, 95, 89, 23);
 		contentPane.add(button_1);
 		
-		JLabel lblCircunscripcion = new JLabel("Seleciona una Circunscripci\u00F3n");
+		JLabel lblCircunscripcion = new JLabel("Seleciona un Municipio");
 		lblCircunscripcion.setForeground(Color.WHITE);
 		lblCircunscripcion.setFont(new Font("Tahoma", Font.PLAIN, 15));
 		lblCircunscripcion.setBounds(10, 11, 186, 19);
@@ -108,22 +110,8 @@ public class FframeC extends JFrame {
 		comboBox.setBounds(10, 36, 165, 20);
 		contentPane.add(comboBox);
 		
-		llenarComboCir();
+		llenarComboMun();
 		
-	}
-	public void llenarComboCir(){
-		try {
-			listCircunscripcion_DTOs = ServicesLocator.getCircunscripcion_Services().selectAllCIR();
-			for (int i = 0; i < listCircunscripcion_DTOs.size(); i++) {
-				comboBox.addItem(listCircunscripcion_DTOs.get(i).getNombre());
-			}
-		} catch (ClassNotFoundException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
 	}
 
 	public String getNomCir() {
@@ -132,6 +120,20 @@ public class FframeC extends JFrame {
 
 	public void setNomCir(String nomCir) {
 		this.nomCir = nomCir;
+	}
+	public void llenarComboMun(){
+		try {
+			listMunicipio_DTOs = ServicesLocator.getMunicipio_Services().selectAllMun();
+			for (int i = 0; i < listMunicipio_DTOs.size(); i++) {
+				comboBox.addItem(listMunicipio_DTOs.get(i).getName());
+			}
+		} catch (ClassNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 
 }
