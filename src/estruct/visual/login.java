@@ -109,7 +109,7 @@ public class login extends JFrame {
 		LblError.setVisible(false);
 		
 		try {
-			listaUsuarios = registrer_Services.selectAllUsers();
+			listaUsuarios = ServicesLocator.getRegistrer_Services().selectAllUsers();
 			if(listaUsuarios.size()==0)
 				registrer_Services.insertUser("raul", "123","administrador", 1);
 		} catch (ClassNotFoundException | SQLException e1) {
