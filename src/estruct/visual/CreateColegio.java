@@ -25,6 +25,7 @@ import java.sql.SQLException;
 import java.text.StringCharacterIterator;
 import java.util.ArrayList;
 import java.awt.event.ActionEvent;
+import java.awt.Toolkit;
 
 public class CreateColegio extends JFrame {
 
@@ -59,6 +60,7 @@ public class CreateColegio extends JFrame {
 	 * Create the frame.
 	 */
 	public CreateColegio() {
+		setIconImage(Toolkit.getDefaultToolkit().getImage(CreateColegio.class.getResource("/img/votacion.png")));
 		setTitle("Crear Colegio");
 		this.setLocationRelativeTo(null);
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);

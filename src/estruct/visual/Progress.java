@@ -13,6 +13,7 @@ import javax.swing.JLabel;
 import java.awt.Font;
 import java.awt.Cursor;
 import java.util.Locale;
+import javax.swing.border.LineBorder;
 
 @SuppressWarnings("serial")
 public class Progress extends JFrame {
@@ -50,6 +51,8 @@ public class Progress extends JFrame {
 		contentPane.setLayout(null);
 		
 		progressBar = new JProgressBar();
+		progressBar.setBorder(new LineBorder(new Color(0, 0, 0)));
+		progressBar.setFont(new Font("Tahoma", Font.BOLD, 11));
 		progressBar.setLocale(new Locale("es", "CU"));
 		progressBar.setCursor(Cursor.getPredefinedCursor(Cursor.WAIT_CURSOR));
 		progressBar.setStringPainted(true);

@@ -22,6 +22,7 @@ import java.awt.event.ActionListener;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.awt.event.ActionEvent;
+import java.awt.Toolkit;
 
 public class CreateMunicipio extends JFrame {
 
@@ -52,6 +53,7 @@ public class CreateMunicipio extends JFrame {
 	 * Create the frame.
 	 */
 	public CreateMunicipio() {
+		setIconImage(Toolkit.getDefaultToolkit().getImage(CreateMunicipio.class.getResource("/img/votacion.png")));
 		setTitle("Crear Municipio");
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		setBounds(100, 100, 525, 350);

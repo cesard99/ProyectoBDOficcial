@@ -32,6 +32,7 @@ import dto.Circunscripcion_DTO;
 import dto.Colegios_DTO;
 import dto.Municipio_DTO;
 import estruct.services.ServicesLocator;
+import java.awt.Toolkit;
 
 public class Parte extends JFrame {
 	private ArrayList<Municipio_DTO> listmunicipio_DTOs;
@@ -64,6 +65,7 @@ public class Parte extends JFrame {
 	 * Create the frame.
 	 */
 	public Parte() {
+		setIconImage(Toolkit.getDefaultToolkit().getImage(Parte.class.getResource("/img/votacion.png")));
 		setResizable(false);
 		setTitle("Parte");
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);

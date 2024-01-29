@@ -57,6 +57,7 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.Calendar;
+import java.awt.Toolkit;
 
 public class CreateElector extends JFrame {
 	private int cantelectorAdd;
@@ -99,6 +100,7 @@ public class CreateElector extends JFrame {
 	 * Create the frame.
 	 */
 	public CreateElector() {
+		setIconImage(Toolkit.getDefaultToolkit().getImage(CreateElector.class.getResource("/img/votacion.png")));
 		setResizable(false);
 		this.setLocationRelativeTo(null);
 		setTitle("CreateUser");

@@ -33,6 +33,7 @@ import javax.swing.JButton;
 
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
+import java.awt.Toolkit;
 
 public class CreateCDR extends JFrame {
 
@@ -66,6 +67,7 @@ public class CreateCDR extends JFrame {
 	 * Create the frame.
 	 */
 	public CreateCDR() {
+		setIconImage(Toolkit.getDefaultToolkit().getImage(CreateCDR.class.getResource("/img/votacion.png")));
 		setTitle("Crear CDR");
 		setResizable(false);
 		this.setLocationRelativeTo(null);

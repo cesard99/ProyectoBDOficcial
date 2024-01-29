@@ -33,6 +33,7 @@ import estruct.services.Registrer_Services;
 import estruct.services.ServicesLocator;
 import estruct.util.CreateUserTablemodel;
 import estruct.util.validaciones;
+import java.awt.Toolkit;
 
 public class CreateUser extends JFrame {
 	private ArrayList<Registrer_DTO> listaUsuarios;
@@ -63,6 +64,7 @@ public class CreateUser extends JFrame {
 	 * Create the frame.
 	 */
 	public CreateUser() {
+		setIconImage(Toolkit.getDefaultToolkit().getImage(CreateUser.class.getResource("/img/accs.png")));
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		setBounds(100, 100, 450, 300);
 		this.setLocationRelativeTo(null);
@@ -124,7 +126,6 @@ public class CreateUser extends JFrame {
 		
 		textField_2 = new JComboBox();
 		textField_2.setModel(new DefaultComboBoxModel(new String[] {"Administrador", "Usuario"}));
-		textField_2.setEditable(true);
 		textField_2.setBounds(10, 172, 134, 20);
 		contentPane.add(textField_2);
 		

@@ -25,6 +25,7 @@ import java.awt.event.ActionListener;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.awt.event.ActionEvent;
+import java.awt.Toolkit;
 
 public class CreateCircunscripcion extends JFrame {
 
@@ -57,6 +58,7 @@ public class CreateCircunscripcion extends JFrame {
 	 * Create the frame.
 	 */
 	public CreateCircunscripcion() {
+		setIconImage(Toolkit.getDefaultToolkit().getImage(CreateCircunscripcion.class.getResource("/img/votacion.png")));
 		setTitle("Crear Circunscripcion");
 		setResizable(false);
 		this.setLocationRelativeTo(null);
