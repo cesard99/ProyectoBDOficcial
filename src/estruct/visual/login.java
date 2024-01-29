@@ -151,7 +151,7 @@ public class login extends JFrame {
 			}
 			if(esta){
 				dispose();
-				Progress p = new Progress();
+				Progress p = new Progress(user.getRol(),user.getName());
 				p.setVisible(true);
 			}
 			else

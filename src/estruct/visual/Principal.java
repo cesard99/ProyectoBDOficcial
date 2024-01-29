@@ -100,7 +100,9 @@ public class Principal extends JFrame {
 	private JComboBox comboBoxAgre;
 
 	
-	public Principal() {
+	public Principal(String rol,String name) {
+		        
+		
 		setResizable(false);
 		setTitle("Principal");
 		setIconImage(Toolkit.getDefaultToolkit().getImage(Principal.class.getResource("/img/votacion.png")));
@@ -213,8 +215,14 @@ public class Principal extends JFrame {
 		btnNewButton.setBackground(new Color(0, 128, 128));
 		menuBar.add(btnNewButton);
 		
-		Component horizontalStrut = Box.createHorizontalStrut(315);
+		Component horizontalStrut = Box.createHorizontalStrut(202);
+		horizontalStrut.setBackground(new Color(0, 128, 128));
 		menuBar.add(horizontalStrut);
+		
+		JLabel lblROL = new JLabel("Administrador: Raul");
+		lblROL.setFont(new Font("Tahoma", Font.BOLD, 11));
+		lblROL.setBackground(new Color(0, 128, 128));
+		menuBar.add(lblROL);
 		
 		JButton BtnCerrarSeccion = new JButton("Cerrar Seccion ");
 		menuBar.add(BtnCerrarSeccion);
@@ -266,16 +274,16 @@ public class Principal extends JFrame {
 				if(r.equalsIgnoreCase("Electores que no Votaron")){
 					crearreporte12(null, null, null);
 				}else if(r.equalsIgnoreCase("Por Municipio")){
-					FframeMUN f = new FframeMUN();
+					FframeMUN f = new FframeMUN(rol,name);
 					f.setVisible(true);
 					dispose();
 				}else if(r.equalsIgnoreCase("Por Circunscrpcion")){
-					FframeC2 f = new FframeC2();
+					FframeC2 f = new FframeC2(rol,name);
 					f.setVisible(true);
 					dispose();
 					
 				}else if(r.equalsIgnoreCase("Por CDR")){
-					FframeCDR2 f = new FframeCDR2();
+					FframeCDR2 f = new FframeCDR2(rol,name);
 					f.setVisible(true);
 					dispose();
 				}	
@@ -315,11 +323,11 @@ public class Principal extends JFrame {
 				if(r.equalsIgnoreCase("Todas Las Circunscripciones")){
 					crearreporte1(null,null);
 				}else if(r.equalsIgnoreCase("Una Circunscripcion")){
-					FframeC f = new FframeC();
+					FframeC f = new FframeC(rol,name);
 					f.setVisible(true);
 					dispose();
 				}else if(r.equalsIgnoreCase("Un CDR")){
-					FframeCDR f = new FframeCDR();
+					FframeCDR f = new FframeCDR(rol,name);
 					f.setVisible(true);
 					dispose();
 					
@@ -432,6 +440,17 @@ public class Principal extends JFrame {
 		table.getColumnModel().getColumn(4).setPreferredWidth(89);
 		table.getColumnModel().getColumn(5).setPreferredWidth(89);
 		table.getColumnModel().getColumn(6).setPreferredWidth(89);
+		
+		if(rol.equalsIgnoreCase("Administrador")) {
+			btnCrearUsuario.setEnabled(true);
+			lblROL.setText(rol+": "+name.toUpperCase()+" ");
+		}else {
+			btnCrearUsuario.setEnabled(false);
+			lblROL.setText("         Usuario: "+name.toUpperCase()+" ");
+		}
+		//Usuario         
+		
+		
 
 	}
 	

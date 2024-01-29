@@ -41,7 +41,7 @@ public class FframeCDR extends JFrame {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					FframeCDR frame = new FframeCDR();
+					FframeCDR frame = new FframeCDR(null,null);
 					frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -53,7 +53,7 @@ public class FframeCDR extends JFrame {
 	/**
 	 * Create the frame.
 	 */
-	public FframeCDR() {
+	public FframeCDR(String rol,String name) {
 		setResizable(false);
 		setBackground(new Color(255, 255, 255));
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
@@ -71,7 +71,7 @@ public class FframeCDR extends JFrame {
 			setNomCir(comboBox.getSelectedItem().toString());
 			try {
 				//ServicesLocator.getAux_services().insertAux(nomCir);
-				Principal p = new Principal();
+				Principal p = new Principal(rol,name);
 				p.setVisible(true);
 				p.crearreporte1l(null, nomCir);
 				dispose();
@@ -89,7 +89,7 @@ public class FframeCDR extends JFrame {
 		JButton button_1 = new JButton("Cancelar");
 		button_1.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				Principal p = new Principal();
+				Principal p = new Principal(rol,name);
 				p.setVisible(true);
 				dispose();
 			}

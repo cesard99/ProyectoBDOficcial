@@ -19,6 +19,8 @@ public class Progress extends JFrame {
 	JProgressBar progressBar;
 	private JPanel contentPane;
 	private JLabel lblCargandoSistema;
+	private String rol;
+	private String name;
 	/**
 	 * Launch the application.
 	 */
@@ -26,7 +28,7 @@ public class Progress extends JFrame {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					Progress frame = new Progress();
+					Progress frame = new Progress(null,null);
 					frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -38,7 +40,7 @@ public class Progress extends JFrame {
 	/**
 	 * Create the frame.
 	 */
-	public Progress() {
+	public Progress(String Rol,String Name) {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 750, 178);
 		contentPane = new JPanel();
@@ -60,7 +62,8 @@ public class Progress extends JFrame {
 		lblCargandoSistema.setFont(new Font("Times New Roman", Font.BOLD | Font.ITALIC, 25));
 		lblCargandoSistema.setBounds(294, 11, 212, 30);
 		contentPane.add(lblCargandoSistema);
-		
+		rol = Rol;
+		name= Name;
 		this.setLocationRelativeTo(null);
 		this.setUndecorated(true);
 		arrancar();
@@ -79,7 +82,8 @@ public class Progress extends JFrame {
 						Thread.sleep(50);
 						
 						if (i==100) {
-							Principal p = new Principal();
+							
+							Principal p = new Principal(rol,name);
 							p.setVisible(true);
 							dispose();
 						}
