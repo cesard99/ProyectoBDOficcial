@@ -138,13 +138,13 @@ public class CreateUser extends JFrame {
 	}
 	
 	public void crear(){
-		int valorDado = (int)Math.floor(Math.random()*10+5);
+		int valorDado = (int)Math.floor(Math.random()*100+5);
 		String user =textField.getText();
 		String pss =textField_1.getText();
 		String rol =textField_2.getSelectedItem().toString();
 		//Registrer_DTO u = new Registrer_DTO(user, pss, rol,valorDado);
 	    try {
-			registrer_Services.insertUser(user, pss, rol, valorDado);
+			ServicesLocator.getRegistrer_Services().insertUser(user, pss, rol, valorDado);
 		} catch (ClassNotFoundException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
