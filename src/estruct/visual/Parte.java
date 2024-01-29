@@ -11,6 +11,7 @@ import java.awt.Color;
 
 import javax.swing.JTextField;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 
 import java.awt.Font;
 
@@ -20,6 +21,8 @@ import javax.swing.JButton;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import java.sql.SQLException;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 
 import javax.swing.JComboBox;
@@ -40,10 +43,18 @@ public class Parte extends JFrame {
 	private ArrayList<Colegios_DTO>listcolegios_DTOs;
 	private ArrayList<CDR_DTO>listcdr_DTOs;
 	private JPanel contentPane;
-	private JComboBox textField;
-	private JComboBox textField_1;
-	private JComboBox textField_2;
-	private JComboBox textField_3;
+	private JComboBox comboMun;
+	private JComboBox comboCir;
+	private JComboBox comboCDR;
+	private JComboBox comboCole;
+	private JTextField textFieldfecha;
+	JSpinner spinnerElectoresVotacionDeDia = new JSpinner();
+	JSpinner spinnerElectoresParteAnt = new JSpinner();
+	JSpinner spinnerElectoresDeleted = new JSpinner();
+	JSpinner spinnerElectoresAdd = new JSpinner();
+	JSpinner spinnerElectoresInicio = new JSpinner();
+	JSpinner spinnerParte = new JSpinner();
+	JSpinner spinnerVuelta = new JSpinner();
 
 	/**
 	 * Launch the application.
@@ -77,9 +88,9 @@ public class Parte extends JFrame {
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
 		
-		textField = new JComboBox();
-		textField.setBounds(10, 46, 154, 20);
-		contentPane.add(textField);
+		comboMun = new JComboBox();
+		comboMun.setBounds(10, 46, 154, 20);
+		contentPane.add(comboMun);
 		
 		JLabel lblNewLabel = new JLabel("Municipio");
 		lblNewLabel.setFont(new Font("Tahoma", Font.PLAIN, 15));
@@ -93,9 +104,9 @@ public class Parte extends JFrame {
 		lblCircunscripcin.setBounds(10, 79, 166, 14);
 		contentPane.add(lblCircunscripcin);
 		
-		textField_1 = new JComboBox();
-		textField_1.setBounds(10, 102, 154, 20);
-		contentPane.add(textField_1);
+		comboCir = new JComboBox();
+		comboCir.setBounds(10, 102, 154, 20);
+		contentPane.add(comboCir);
 		
 		JLabel lblCdr = new JLabel("CDR");
 		lblCdr.setForeground(Color.WHITE);
@@ -103,9 +114,9 @@ public class Parte extends JFrame {
 		lblCdr.setBounds(10, 136, 166, 14);
 		contentPane.add(lblCdr);
 		
-		textField_2 = new JComboBox();
-		textField_2.setBounds(10, 161, 154, 20);
-		contentPane.add(textField_2);
+		comboCDR = new JComboBox();
+		comboCDR.setBounds(10, 161, 154, 20);
+		contentPane.add(comboCDR);
 		
 		JLabel lblColegioElectoral = new JLabel("Colegio Electoral");
 		lblColegioElectoral.setForeground(Color.WHITE);
@@ -113,9 +124,9 @@ public class Parte extends JFrame {
 		lblColegioElectoral.setBounds(10, 204, 166, 14);
 		contentPane.add(lblColegioElectoral);
 		
-		textField_3 = new JComboBox();
-		textField_3.setBounds(10, 229, 154, 20);
-		contentPane.add(textField_3);
+		comboCole = new JComboBox();
+		comboCole.setBounds(10, 229, 154, 20);
+		contentPane.add(comboCole);
 		
 		JLabel lblNumeroDeVuelta = new JLabel("Numero De Vuelta:");
 		lblNumeroDeVuelta.setForeground(Color.WHITE);
@@ -123,7 +134,6 @@ public class Parte extends JFrame {
 		lblNumeroDeVuelta.setBounds(10, 272, 125, 14);
 		contentPane.add(lblNumeroDeVuelta);
 		
-		JSpinner spinnerVuelta = new JSpinner();
 		spinnerVuelta.setModel(new SpinnerNumberModel(new Integer(0), new Integer(0), null, new Integer(1)));
 		spinnerVuelta.setBounds(134, 271, 42, 20);
 		contentPane.add(spinnerVuelta);
@@ -134,7 +144,6 @@ public class Parte extends JFrame {
 		lblNmeroDeParte.setBounds(10, 310, 125, 14);
 		contentPane.add(lblNmeroDeParte);
 		
-		JSpinner spinnerParte = new JSpinner();
 		spinnerParte.setModel(new SpinnerNumberModel(new Integer(0), new Integer(0), null, new Integer(1)));
 		spinnerParte.setBounds(134, 309, 42, 20);
 		contentPane.add(spinnerParte);
@@ -145,7 +154,6 @@ public class Parte extends JFrame {
 		lblCantidadElectoresInicio.setBounds(276, 46, 166, 14);
 		contentPane.add(lblCantidadElectoresInicio);
 		
-		JSpinner spinnerElectoresInicio = new JSpinner();
 		spinnerElectoresInicio.setModel(new SpinnerNumberModel(new Integer(0), new Integer(0), null, new Integer(1)));
 		spinnerElectoresInicio.setBounds(452, 46, 42, 20);
 		contentPane.add(spinnerElectoresInicio);
@@ -156,7 +164,6 @@ public class Parte extends JFrame {
 		lblCantidadElectoresAgregados.setBounds(235, 89, 207, 14);
 		contentPane.add(lblCantidadElectoresAgregados);
 		
-		JSpinner spinnerElectoresAdd = new JSpinner();
 		spinnerElectoresAdd.setModel(new SpinnerNumberModel(new Integer(0), new Integer(0), null, new Integer(1)));
 		spinnerElectoresAdd.setBounds(452, 89, 42, 20);
 		contentPane.add(spinnerElectoresAdd);
@@ -167,7 +174,6 @@ public class Parte extends JFrame {
 		lblCantidadElectoresEliminados.setBounds(235, 129, 207, 14);
 		contentPane.add(lblCantidadElectoresEliminados);
 		
-		JSpinner spinnerElectoresDeleted = new JSpinner();
 		spinnerElectoresDeleted.setModel(new SpinnerNumberModel(new Integer(0), new Integer(0), null, new Integer(1)));
 		spinnerElectoresDeleted.setBounds(452, 129, 42, 20);
 		contentPane.add(spinnerElectoresDeleted);
@@ -178,7 +184,6 @@ public class Parte extends JFrame {
 		lblCantidadElectoresParte.setBounds(216, 183, 226, 14);
 		contentPane.add(lblCantidadElectoresParte);
 		
-		JSpinner spinnerElectoresParteAnt = new JSpinner();
 		spinnerElectoresParteAnt.setModel(new SpinnerNumberModel(new Integer(0), new Integer(0), null, new Integer(1)));
 		spinnerElectoresParteAnt.setBounds(452, 183, 42, 20);
 		contentPane.add(spinnerElectoresParteAnt);
@@ -189,7 +194,7 @@ public class Parte extends JFrame {
 		lblElectoresQueVotaron.setBounds(216, 226, 226, 14);
 		contentPane.add(lblElectoresQueVotaron);
 		
-		JSpinner spinnerElectoresVotacionDeDia = new JSpinner();
+		
 		spinnerElectoresVotacionDeDia.setModel(new SpinnerNumberModel(new Integer(0), new Integer(0), null, new Integer(1)));
 		spinnerElectoresVotacionDeDia.setBounds(452, 226, 42, 20);
 		contentPane.add(spinnerElectoresVotacionDeDia);
@@ -197,7 +202,13 @@ public class Parte extends JFrame {
 		JButton btnNewButton = new JButton("Crear");
 		btnNewButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-			crear();
+				if(verificarcamposllenos()) {
+					DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+					LocalDate fecha = LocalDate.parse(textFieldfecha.getText(), formatter);
+			     crear(fecha);
+				}else {
+					JOptionPane.showMessageDialog(null, "Por favor, completa todos los campos correctamente.", "Advertencia", JOptionPane.WARNING_MESSAGE);
+				}
 			}
 		});
 		btnNewButton.setBounds(10, 456, 89, 23);
@@ -212,21 +223,52 @@ public class Parte extends JFrame {
 		btnCancelar.setBounds(407, 456, 89, 23);
 		contentPane.add(btnCancelar);
 		
+		JLabel lblFecha = new JLabel("Fecha:");
+		lblFecha.setForeground(Color.WHITE);
+		lblFecha.setFont(new Font("Tahoma", Font.PLAIN, 15));
+		lblFecha.setBounds(226, 259, 226, 14);
+		contentPane.add(lblFecha);
+		
+		textFieldfecha = new JTextField();
+		textFieldfecha.setBounds(284, 284, 185, 20);
+		contentPane.add(textFieldfecha);
+		textFieldfecha.setColumns(10);
+		
 		llenarComboMun();
 		llenarComboCir();
 		llenarComboCdr();
 		llenarComboCOL();
 	}
-	public void crear(){
+	public void crear(LocalDate fecha){
+		String codigoMunString =listmunicipio_DTOs.get(comboMun.getSelectedIndex()).getCodigo();
+		String codigoCircString=listcircunscripcion_DTOs.get(comboCir.getSelectedIndex()).getCodigo();
+		String codigoCDrString=listcdr_DTOs.get(comboCDR.getSelectedIndex()).getCodigo();
+		String codigoCOleString=listcolegios_DTOs.get(comboCole.getSelectedIndex()).getCodigo();
+		int vuelta=(Integer)spinnerVuelta.getValue();
+		int parte=(Integer)spinnerParte.getValue();
+		int ElectoresInicio=(Integer)spinnerElectoresInicio.getValue();
+		int ElectoresADd=(Integer)spinnerElectoresAdd.getValue();
+		int ElectoresDeleted=(Integer)spinnerElectoresDeleted.getValue();
+		int ElectoresParteAnterior=(Integer)spinnerElectoresParteAnt.getValue();
+		int ElectoresVotaronDia=(Integer)spinnerElectoresVotacionDeDia.getValue();
 		
+	}
+	
+	
+	public boolean verificarcamposllenos() {
+		boolean bandera=false;
+		 if(!comboCDR.getSelectedItem().toString().isEmpty() && !comboCir.getSelectedItem().toString().isEmpty() && !comboCole.getSelectedItem().toString().isEmpty() && 
+				 !comboMun.getSelectedItem().toString().isEmpty()) {
+			 bandera=true;
+		 }
 		
-	 
+		return bandera;
 	}
 	public void llenarComboMun(){
 		try {
 			listmunicipio_DTOs = ServicesLocator.getMunicipio_Services().selectAllMun();
 			for (int i = 0; i < listmunicipio_DTOs.size(); i++) {
-				textField.addItem(listmunicipio_DTOs.get(i).getName());
+				comboMun.addItem(listmunicipio_DTOs.get(i).getName());
 			}
 		} catch (ClassNotFoundException e) {
 			// TODO Auto-generated catch block
@@ -240,7 +282,7 @@ public class Parte extends JFrame {
 		try {
 			listcircunscripcion_DTOs = ServicesLocator.getCircunscripcion_Services().selectAllCIR();
 			for (int i = 0; i < listcircunscripcion_DTOs.size(); i++) {
-				textField_1.addItem(listcircunscripcion_DTOs.get(i).getNombre());
+				comboCir.addItem(listcircunscripcion_DTOs.get(i).getNombre());
 			}
 		} catch (ClassNotFoundException e) {
 			// TODO Auto-generated catch block
@@ -254,7 +296,7 @@ public class Parte extends JFrame {
 		try {
 			listcdr_DTOs = ServicesLocator.getCDR_Services().selectAllCDr();
 			for (int i = 0; i < listcdr_DTOs.size(); i++) {
-				textField_2.addItem(listcdr_DTOs.get(i).getName());
+				comboCDR.addItem(listcdr_DTOs.get(i).getName());
 			}
 		} catch (ClassNotFoundException e) {
 			// TODO Auto-generated catch block
@@ -268,7 +310,7 @@ public class Parte extends JFrame {
 		try {
 			listcolegios_DTOs = ServicesLocator.getColegios_Services().selectAllCol();
 			for (int i = 0; i < listcolegios_DTOs.size(); i++) {
-				textField_3.addItem(listcolegios_DTOs.get(i).getName());
+				comboCole.addItem(listcolegios_DTOs.get(i).getName());
 			}
 		} catch (ClassNotFoundException e) {
 			// TODO Auto-generated catch block
@@ -278,5 +320,4 @@ public class Parte extends JFrame {
 			e.printStackTrace();
 		}
 	}
-	
 }
